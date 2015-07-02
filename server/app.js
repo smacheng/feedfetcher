@@ -33,11 +33,6 @@ if (argv.setup) {
     console.log('Initial User Created.');
 }
 
-// Enables serving of static files
-// Invoked with --development
-if (argv.development) {
-    console.log(__dirname);
-}
 
 feedFetcher.init();
 // ==================================================================================
@@ -55,6 +50,11 @@ var logger = require('morgan'),
 var app = express();
 // Exports for use by Mocha
 module.exports = app;
+// Enables serving of static files
+// Invoked with --development
+if (argv.development) {
+    app.use(express.static(__dirname + '/build-dev'));
+}
 
 // configure our app to handle CORS requests
 app.use(function (req, res, next) {
@@ -86,9 +86,16 @@ app.use(cookieParser(config.cookieSecret));
 app.use('/api', feedFetcher.api(app, express));
 
 // Catch all route ===============================================================
-app.all('*', function (req, res) {
-    res.redirect('/');
-});
+// If in development, enables redirecting users to front-end
+if (argv.development) {
+    app.all('*', function (req, res) {
+        res.sendFile(path.join(__dirname + '/build-dev/index.html'));
+    });
+} else {
+    app.all('*', function (req, res) {
+        res.redirect('/');
+    });
+}
 
 var server = http.createServer(app);
 server.listen(app.get('port'), function () {

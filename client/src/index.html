@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>FeedFetcher</title>
+    <!-- Angular Routing -->
+    <script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+    <!-- CSS -->
+    <!-- CSS libs -->
+    <link rel="stylesheet" href="assets/styles/lib.css">
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <!-- /CSS -->
+
+    <!-- JS -->
+    <!-- Angular CDN -->
+    <script src="https://code.angularjs.org/1.4.1/angular.js"></script>
+    <!-- Angular Route-->
+    <script src="https://code.angularjs.org/1.4.1/angular-route.js"></script>
+    <!-- Angular Animate -->
+    <script src="https://code.angularjs.org/1.4.1/angular-animate.js"></script>
+    <!-- Angular Material-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+    <!-- App -->
+    <script src="app/app.js"></script>
+</head>
+
+<body ng-app="feedApp" ng-controller="MainController as main">
+<nav-bar></nav-bar>
+<main class="container">
+    <div ng-view></div>
+</main>
+<main-footer></main-footer>
+</body>
+
+</html>

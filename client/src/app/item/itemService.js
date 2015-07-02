@@ -9,11 +9,11 @@
 
             //    Get top 15 items
             itemFactory.all = function () {
-                return $http.get('/feedfetcher/api/all');
+                return $http.get('/api/all');
             };
             // Get specific page of items
             itemFactory.getPage = function (pageNumber) {
-                return $http.get('/feedfetcher/api/all/page/' + pageNumber);
+                return $http.get('/api/all/page/' + pageNumber);
             };
 
             return itemFactory;

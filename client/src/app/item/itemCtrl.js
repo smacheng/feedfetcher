@@ -35,7 +35,7 @@
         .directive('itemListing', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'app/views/items/itemlisting.html'
+                templateUrl: 'app/item/itemlisting.tpl.html'
             };
         });
 

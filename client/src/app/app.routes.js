@@ -7,25 +7,25 @@
             $routeProvider
                 //    Home Route (Feed listing)
                 .when('/', {
-                    templateUrl: 'app/views/items/list.html',
+                    templateUrl: 'app/item/list.tpl.html',
                     controller: 'ItemController',
                     controllerAs: 'item'
                 })
                 // Route for viewing all feeds
                 .when('/feeds', {
-                    templateUrl: 'app/views/feeds/feeds.html',
+                    templateUrl: 'app/feed/feeds.tpl.html',
                     controller: 'FeedController',
                     controllerAs: 'feed'
                 })
                 // Route for Creating a new Feed
                 .when('/feeds/create', {
-                    templateUrl: 'app/views/feeds/single.html',
+                    templateUrl: 'app/feed/singlefeed.tpl.html',
                     controller: 'FeedCreateController',
                     controllerAs: 'feed'
                 })
                 // Route for editing a feed
                 .when('/feeds/:feed_id', {
-                    templateUrl: 'app/views/feeds/single.html',
+                    templateUrl: 'app/feed/singlefeed.tpl.html',
                     controller: 'FeedEditController',
                     controllerAs: 'feed'
                 });

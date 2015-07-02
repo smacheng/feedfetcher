@@ -44,13 +44,13 @@
         .directive('mainFooter', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'app/views/partials/mainfooter.html'
+                templateUrl: 'app/main/mainfooter.tpl.html'
             }
         })
         .directive('navBar', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'app/views/partials/navbar.html'
+                templateUrl: 'app/main/navbar.tpl.html'
             }
         });
 })();

@@ -34,7 +34,7 @@ gulp.task('images', function () {
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest('build/dev/assets/images'))
+        .pipe(gulp.dest('../server/build-dev/assets/images'))
         .pipe(gulp.dest('build/prod/assets/images'))
         .pipe($.size({title: 'images'}));
 });
@@ -63,20 +63,22 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('.tmp/styles'))
         // Concatenate and minify styles
         .pipe($.if('*.css', $.csso()))
-        .pipe(gulp.dest('build/dev/assets/styles'))
+        .pipe(gulp.dest('../server/build-dev/assets/styles'))
+        .pipe(gulp.dest('build/prod/assets/styles'))
         .pipe($.size({title: 'styles'}));
 });
 
 // Turn partials into JS templates
 gulp.task('html2js', function () {
     gulp.src('src/app/**/**/*.tpl.html')
-        .pipe(gulp.dest('build/dev/app'))
+        .pipe(gulp.dest('../server/build-dev/app'))
         // Minify
         .pipe($.minifyHtml({
             empty: true,
             sparse: true,
             quotes: true
         }))
+        // Put the minified HTML into appropriate folders in prod
         .pipe(gulp.dest('build/prod/app/'))
         .pipe($.ngHtml2js({
             moduleName: 'PartialTemplates',
@@ -91,24 +93,9 @@ gulp.task('ng', function () {
     return gulp.src('src/app/**/*.js')
         .pipe($.ngAnnotate())
         .pipe($.concat('app.js'))
-        .pipe(gulp.dest('build/dev/app/'))
-        .pipe($.rename({suffix: '.min'}))
+        .pipe(gulp.dest('../server/build-dev/app/'))
         .pipe($.uglify())
         .pipe(gulp.dest('build/prod/app/'));
-});
-
-// Stitch together script libs for dev
-gulp.task('script-lib-dev', function () {
-    return gulp.src('vendor/full/*.js')
-        .pipe($.concat('lib.js'))
-        .pipe(gulp.dest('build/dev/assets/scripts'));
-});
-
-// Stitch together minified script libs for prod
-gulp.task('script-lib-prod', function () {
-    return gulp.src('vendor/min/*.js')
-        .pipe($.concat('lib.js'))
-        .pipe(gulp.dest('build/prod/assets/scripts'));
 });
 
 // Build CSS Libs
@@ -116,19 +103,22 @@ gulp.task('css-lib', function () {
     return gulp.src('vendor/min/*.css')
         .pipe($.concat('lib.css'))
         .pipe(gulp.dest('build/prod/assets/styles'))
-        .pipe(gulp.dest('build/dev/assets/styles'));
+        .pipe(gulp.dest('../server/build-dev/assets/styles'));
 });
 
 // HTML Minify
 gulp.task('html', function () {
-    return gulp.src('src/app/**/**/*.html')
-        .pipe(gulp.dest('build/dev'))
+    return gulp.src('src/*.html')
+        .pipe(gulp.dest('../server/build-dev'))
         .pipe($.minifyHtml())
         .pipe(gulp.dest('build/prod'));
 });
 
 // Clean output directory
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
+gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '../server/build-dev/*', '!dist/.git'], {
+    dot: true,
+    force: true
+}));
 
 // Watch files for changes & reload
 gulp.task('serve', ['styles'], function () {
@@ -164,6 +154,6 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function () {
-    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'script-lib-dev', 'script-lib-prod', 'css-lib']);
+    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib']);
 });
 
