@@ -1,0 +1,14 @@
+aside {
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  .left {
+    top: 0px;
+    left: 0px;
+  }
+  .right {
+    top: 0px;
+    right: 0px;
+  }
+}
