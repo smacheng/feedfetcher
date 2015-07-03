@@ -30,14 +30,12 @@ gulp.task('jshint', function () {
 // Optimize images
 gulp.task('images', function () {
     return gulp.src('src/common/images/**/*')
-        .pipe($.cache($.imagemin({
-            progressive: true,
-            interlaced: true
-        })))
         .pipe(gulp.dest('../server/build-dev/assets/images'))
         .pipe(gulp.dest('build/prod/assets/images'))
         .pipe($.size({title: 'images'}));
 });
+
+//
 
 // Copy web fonts to dist
 gulp.task('fonts', function () {
@@ -121,22 +119,13 @@ gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '../server/build-dev/*', '
 }));
 
 // Watch files for changes & reload
-gulp.task('serve', ['styles'], function () {
-    browserSync({
-        notify: false,
-        // Customize the BrowserSync console logging prefix
-        logPrefix: 'WSK',
-        // Run as an https by uncommenting 'https: true'
-        // Note: this uses an unsigned certificate which on first access
-        //       will present a certificate warning in the browser.
-        // https: true,
-        server: ['.tmp', 'app']
-    });
-
-    gulp.watch(['app/**/*.html'], reload);
-    gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-    gulp.watch(['app/scripts/**/*.js'], ['jshint']);
-    gulp.watch(['app/images/**/*'], reload);
+gulp.task('live', function () {
+    gulp.watch(['src/*.html'], ['live-task']);
+    gulp.watch(['vendor/min/*.css'], ['live-task']);
+    gulp.watch(['src/app/**/*.js'], ['live-task']);
+    gulp.watch(['src/app/**/**/*.tpl.html'], ['live-task']);
+    gulp.watch(['src/sass/**/*.scss'], ['live-task']);
+    gulp.watch(['src/common/images/**/*'], ['live-task']);
 });
 
 // Build and serve the output from the dist build
@@ -157,3 +146,7 @@ gulp.task('default', ['clean'], function () {
     runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib']);
 });
 
+gulp.task('live-task', function () {
+    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib']);
+
+});

@@ -1,14 +1,10 @@
-<!--<div class="row item-header">-->
-<!--<div class="col-sm-6"><a href="#" ng-href=""</div>-->
-<!--<div class="col-sm-6"></div>-->
-<!--</div>-->
-<div class="row item">
-    <div class="col-sm-2 score"><p class="score-text">{{post.score}}pts</p></div>
-    <div class="col-sm-8 title">
-        <p class="title-text"><a ng-href="{{post.url}}" target="_blank">{{post.title}}</a></p>
+<div>
+    <div><p>{{post.score}}pts</p></div>
+    <div>
+        <p><a ng-href="{{post.url}}" target="_blank">{{post.title}}</a></p>
     </div>
-    <div class="col-sm-2 source">
-        <i class="fa fa-reddit" ng-if="post.source === 'Reddit'"></i>
-        <i class="fa fa-hacker-news" ng-if="post.source === 'HackerNews'"></i>
+    <div>
+        <i ng-if="post.source === 'Reddit'"></i>
+        <i ng-if="post.source === 'HackerNews'"></i>
     </div>
 </div>

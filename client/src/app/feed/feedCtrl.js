@@ -46,8 +46,8 @@
                         //    Clear the form
                         vm.feedData = {};
                         vm.message = data.message;
-                    })
-            }
+                    });
+            };
         })
 //    Controller applied to feed edit page
         .controller('FeedEditController', function ($routeParams, Feed) {
@@ -74,7 +74,7 @@
                         vm.feedData = {};
                         //    Bind the message from API to vm.message
                         vm.message = data.message;
-                    })
-            }
-        })
+                    });
+            };
+        });
 })();

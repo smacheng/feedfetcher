@@ -24,13 +24,15 @@ Additionally, it should be perceptually fast and easy to navigate.  Eventually, 
 
 FeedFetcher is designed to be deployed in a distributed manner.  That is, files in the Client directory served by a web server, the Server directory to be proxied to via the /api route, and MongoDB on a separate host.
 
-With small amounts of modification, it could easily be modified to serve static files via Express.
+During development, it may be helpful to not have to worry about this.  For development purposes, follow this workflow:
+* Run `gulp default` to build everything.
+* Run `node app.js --development` .  This enables Express' static routing.
 
 ## Installation
 
 * Clone/Download the Repo
-* NPM install in both client/server Directory
-* Optionally Bower Install in client directory
+* `npm install` in both client/server Directory
+* Optionally `bower install` in client directory
 * Add a file named appconfig.js to the server directory, with the following format:
 ```node
 module.exports = {
@@ -44,9 +46,9 @@ module.exports = {
     'testuserpassword' : 'TEST_USER_PASSWORD',
 };
 ```
-* Run gulp default in client directory to build files
-* Optionally run the seed.sh script in the server/db folder to seed the Mongo DB with feeds.
-* Run node app.js --setup to config the admin user
+* Run `gulp default` in client directory to build files
+* Optionally run the `seed.sh` script in the server/db folder to seed the Mongo DB with feeds.
+* Run `node app.js --setup` to config the admin user
 * Drop the build/prod onto a web server
 * Fetch them feeds!
 
@@ -67,8 +69,8 @@ The project currently works as a part of Ninety, and work is proceeding to de-ta
 ## Roadmap - updated 07/02/2015
 
 A rough idea of plans for this application:
-* Finish untangling the application by fixing paths in Angular files
-* Extract Bootsrap/jQuery, replace with Angular Material/custom layout
+* ~~Finish untangling the application by fixing paths in Angular files~~
+* ~~Extract Bootsrap/jQuery, replace with Angular Material/custom layout~~
 * Add ability to save posts.
 * Add ability to search through posts
 * Test the entire damn thing!

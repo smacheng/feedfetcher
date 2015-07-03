@@ -1,0 +1,15 @@
+<md-content layout-padding layout="column" layout-align="center center">
+    <form ng-submit="login.doLogin()">
+        <md-input-container>
+            <label>Email</label>
+            <input ng-model="login.loginData.email" type="email">
+        </md-input-container>
+        <md-input-container>
+            <label>Password</label>
+            <input ng-model="login.loginData.password" type="password">
+        </md-input-container>
+        <md-input-container>
+            <md-button type="submit" class="md-raised md-primary">Login</md-button>
+        </md-input-container>
+    </form>
+</md-content>

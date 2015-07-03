@@ -8,6 +8,8 @@
     <script>
         document.write('<base href="' + document.location + '" />');
     </script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CSS -->
     <!-- CSS libs -->
     <link rel="stylesheet" href="assets/styles/lib.css">
@@ -15,25 +17,34 @@
     <link rel="stylesheet" href="assets/styles/styles.css">
     <!-- /CSS -->
 
-    <!-- JS -->
-    <!-- Angular CDN -->
-    <script src="https://code.angularjs.org/1.4.1/angular.js"></script>
-    <!-- Angular Route-->
-    <script src="https://code.angularjs.org/1.4.1/angular-route.js"></script>
-    <!-- Angular Animate -->
-    <script src="https://code.angularjs.org/1.4.1/angular-animate.js"></script>
-    <!-- Angular Material-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
-    <!-- App -->
-    <script src="app/app.js"></script>
+
 </head>
 
-<body ng-app="feedApp" ng-controller="MainController as main">
+<body ng-app="feedApp" layout="row" ng-controller="MainController as main">
 <nav-bar></nav-bar>
-<main class="container">
-    <div ng-view></div>
-</main>
-<main-footer></main-footer>
-</body>
+<div flex layout="column" tabindex="-1" role="main" class="md-whiteframe-z2">
+    <md-toolbar layout="row" class="md-whiteframe-z1">
+        <md-button class="menu" hide-gt-sm ng-click="main.toggleNav()" aria-label="Show Navigation">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+    </md-toolbar>
+    <md-content id="main-content" md-scroll-y flex ng-view>
+    </md-content>
+</div>
 
+
+<!-- JS -->
+<!-- Angular CDN -->
+<script src="https://code.angularjs.org/1.4.1/angular.js"></script>
+<!-- Angular Route-->
+<script src="https://code.angularjs.org/1.4.1/angular-route.js"></script>
+<!-- Angular Animate -->
+<script src="https://code.angularjs.org/1.4.1/angular-animate.js"></script>
+<!-- ngAria -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.js"></script>
+<!-- Angular Material-->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.js"></script>
+<!-- App -->
+<script src="app/app.js"></script>
+</body>
 </html>

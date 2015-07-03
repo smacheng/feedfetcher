@@ -13,5 +13,8 @@
     "morgan": "^1.6.0",
     "superagent": "^1.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "browser-sync": "^2.7.13",
+    "connect-browser-sync": "^2.0.1"
+  }
 }

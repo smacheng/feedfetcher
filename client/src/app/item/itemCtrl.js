@@ -2,9 +2,9 @@
  * Created by michaelfisher on 6/30/15.
  */
 (function () {
-    angular.module('itemCtrl', ['itemService'])
+    angular.module('itemCtrl', ['itemService', 'smoothScroll'])
         // Full listing controller
-        .controller('ItemController', function (Item) {
+        .controller('ItemController', function (Item, smoothScroll) {
             var vm = this;
             // Setup for pagination
             vm.totalItems = 0;

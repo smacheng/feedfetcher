@@ -13,6 +13,8 @@
         'feedService',
         // Controller for main page
         'mainCtrl',
+//        Login Controller
+        'loginCtrl',
 //    Controller for feed creation
         'feedCtrl',
         // Controller for item listing
@@ -20,10 +22,22 @@
         //    Service for getting items from API
         'itemService',
         //    Pagination
-        'angularUtils.directives.dirPagination'
+        'angularUtils.directives.dirPagination',
+        // Smooth Scroll for switching pages
+        'smoothScroll',
+        // Dependency for ngMaterial
+        'ngAria',
+        // Material design directives
+        'ngMaterial'
     ])
-        .config(function ($httpProvider) {
+        .config(function ($httpProvider, $mdThemingProvider, $mdIconProvider, paginationTemplateProvider) {
             //    Attach auth interceptor to the http requests
             $httpProvider.interceptors.push('AuthInterceptor');
+            paginationTemplateProvider.setPath('app/util/paginate/dirPagination.tpl.html');
+            $mdIconProvider.icon('menu', './assets/images/svg/menu_24.svg', 24)
+                .icon('arrow_back', './assets/images/svg/arrow_back_48.svg', 48)
+                .icon('delete', './assets/images/svg/delete_48.svg', 48)
+                .icon('edit', './assets/images/svg/edit_48.svg', 48)
+                .icon('arrow_forward', './assets/images/svg/arrow_forward_48.svg', 48);
         });
 })();

@@ -1,16 +1,15 @@
 <!-- loading message -->
 <!-- todo:  make this into a directive.  How can we make the loading message dynamic so it's reusable across the application? -->
-<div class="jumbotron text-center" ng-show="feed.processing">
-    <span class="glyphicon glyphicon-repeat spinner">
-        <p>Loading Feeds...</p>
-    </span>
-</div>
-<div class="text-center">
-    <dir-pagination-controls on-page-change="item.pageChanged(newPageNumber)"></dir-pagination-controls>
-</div>
-<!-- Item listing -->
-</div>
-<div class="feeds" dir-paginate="post in item.items | itemsPerPage: 10" total-items="item.totalItems"
-     current-page="item.currentPage">
-    <item-listing></item-listing>
-</div>
+<md-list>
+    <md-list-item ng-click="post.url" class="md-2-line" dir-paginate="post in item.items | itemsPerPage: 20"
+                  total-items="item.totalItems" current-page="item.currentPage" ng-href="post.url">
+        <div class="md-list-item-text" id="{{post._id}}">
+            <h3 ng-if="post.source === 'Reddit'">Reddit</h3>
+
+            <h3 ng-if="post.source === 'HackerNews'">Hacker News</h3>
+
+            <p>{{post.title}}</p>
+        </div>
+    </md-list-item>
+</md-list>
+<dir-pagination-controls on-page-change="item.pageChanged(newPageNumber)"></dir-pagination-controls>

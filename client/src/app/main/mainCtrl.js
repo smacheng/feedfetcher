@@ -3,7 +3,7 @@
  */
 (function () {
     angular.module('mainCtrl', [])
-        .controller('MainController', function ($rootScope, $location, Auth) {
+        .controller('MainController', function ($rootScope, $location, $mdSidenav, Auth) {
             var vm = this;
 
             //    Find out if logged in
@@ -19,38 +19,25 @@
                     });
             });
 
-            //    Handle login form
-            vm.doLogin = function () {
-                vm.loginProcessing = true;
-                //    Call the Auth.login() function
-                Auth.login(vm.loginData.email, vm.loginData.password)
-                    .success(function (data) {
-                        vm.loginProcessing = false;
-                        vm.loggedIn = true;
-                        if (!data.success) {
-                            vm.error = data.message;
-                        }
-                    });
-            };
-
             //    Handle logging out
             vm.doLogout = function () {
                 Auth.logout();
                 //     Reset all user info
                 vm.user = {};
                 vm.loggedIn = false;
-            }
-        })
-        .directive('mainFooter', function () {
-            return {
-                restrict: 'E',
-                templateUrl: 'app/main/mainfooter.tpl.html'
-            }
+                $location.path('/');
+            };
+
+            vm.toggleNav = function () {
+              $mdSidenav('left').toggle();
+
+            };
+
         })
         .directive('navBar', function () {
             return {
                 restrict: 'E',
                 templateUrl: 'app/main/navbar.tpl.html'
-            }
+            };
         });
 })();

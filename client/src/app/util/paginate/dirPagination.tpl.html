@@ -1,19 +1,8 @@
-<ul class="pagination" ng-if="1 < pages.length">
-    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
-        <a href="" ng-click="setCurrent(1)">&laquo;</a>
-    </li>
-    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
-        <a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
-    </li>
-    <li ng-repeat="pageNumber in pages track by $index"
-        ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
-        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
-    </li>
-
-    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
-        <a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
-    </li>
-    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }">
-        <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
-    </li>
-</ul>
+<div layout="row" class="pagination" ng-if="1 < pages.length">
+    <md-button class="md-fab" aria-label="Go Back a Page" ng-disabled="pagination.current == 1" ng-click="setCurrent(pagination.current - 1)">
+        <md-icon md-svg-icon="arrow_back"></md-icon>
+    </md-button>
+    <md-button class="md-fab" aria-label="Go Forward a Page" ng-disabled="pagination.current == pagination.last" ng-click="setCurrent(pagination.current + 1)">
+        <md-icon md-svg-icon="arrow_forward"></md-icon>
+    </md-button>
+</div>

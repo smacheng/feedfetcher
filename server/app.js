@@ -53,6 +53,9 @@ module.exports = app;
 // Enables serving of static files
 // Invoked with --development
 if (argv.development) {
+    var browserSync = require('browser-sync');
+    var bs = browserSync({logSnippet: false});
+    app.use(require('connect-browser-sync')(bs));
     app.use(express.static(__dirname + '/build-dev'));
 }
 

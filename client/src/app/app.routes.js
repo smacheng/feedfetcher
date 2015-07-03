@@ -11,6 +11,11 @@
                     controller: 'ItemController',
                     controllerAs: 'item'
                 })
+                .when('/login', {
+                    templateUrl: 'app/login/login.tpl.html',
+                    controller: 'LoginController',
+                    controllerAs:  'login'
+                })
                 // Route for viewing all feeds
                 .when('/feeds', {
                     templateUrl: 'app/feed/feeds.tpl.html',

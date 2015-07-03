@@ -1,35 +1,23 @@
-<div class="page-header">
-    <h1>
-        <a href="feeds/create" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-            New Feed
-        </a>
-    </h1>
-</div>
+<md-list>
+    <md-list-item class="md-2-line" ng-repeat="url in feed.feeds">
+        <div class="md-list-item-text">
+            <h3>{{ url.url }}</h3>
 
-<!-- Loading Message -->
-<div class="jumbotron text-center" ng-show="feed.processing">
-    <span class="glyphicon glyphicon-repeat spinner">
+            <p>{{ url._id }}</p>
+        </div>
+        <md-menu>
+            <md-button aria-label="Open Feed Interactions Menu" class="md-icon-button" ng-click="$mdOpenMenu(event)">
+                <md-icon md-menu-origin md-svg-icon="edit"></md-icon>
+            </md-button>
+            <md-menu-content width="2">
+                <md-menu-item>
+                    <md-button ng-href="/feeds/{{ url._id }}">Edit</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="md-warn" ng-click="feed.deleteFeed(url._id)">Delete</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-list-item>
+</md-list>
 
-    <p>Loading Feeds</p>
-        </span>
-</div>
-
-<table class="table table-bordered table-striped" ng-show="feed.feeds">
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>url</th>
-        <th class="col-sm-2"></th>
-    </tr>
-    </thead>
-    <tbody></tbody>
-    <tr ng-repeat="url in feed.feeds">
-        <td>{{ url._id }}</td>
-        <td>{{ url.url }}</td>
-        <td class="col-sm-2">
-            <a class="btn btn-danger" ng-href="feeds/{{ url._id }}">Edit</a>
-            <a href="#" ng-click="feed.deleteFeed(url._id)" class="btn btn-primary">Delete</a>
-        </td>
-    </tr>
-</table>
