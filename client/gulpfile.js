@@ -86,6 +86,15 @@ gulp.task('html2js', function () {
         .pipe(gulp.dest('src/app/util/partials'));
 });
 
+// Scripts
+gulp.task('scripts', function () {
+    return gulp.src('src/common/scripts/**.js')
+        .pipe($.concat('script.js'))
+        .pipe(gulp.dest('../server/build-dev/assets/script'))
+        .pipe($.uglify())
+        .pipe(gulp.dest('build/prod/assets/script/'));
+});
+
 // Build angular components
 gulp.task('ng', function () {
     return gulp.src('src/app/**/*.js')
@@ -143,10 +152,10 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function () {
-    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib']);
+    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib', 'scripts']);
 });
 
 gulp.task('live-task', function () {
-    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib']);
+    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib', 'scripts']);
 
 });

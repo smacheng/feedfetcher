@@ -294,6 +294,14 @@
                 }
             };
 
+            scope.pageBack = function () {
+                scope.setCurrent(scope.pagination.current - 1);
+            };
+
+            scope.pageForward = function () {
+                scope.setCurrent(scope.pagination.current + 1);
+            };
+
             function goToPage(num) {
                 if (isValidPageNumber(num)) {
                     scope.pages = generatePagesArray(num, paginationService.getCollectionLength(paginationId), paginationService.getItemsPerPage(paginationId), paginationRange);

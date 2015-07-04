@@ -27,7 +27,7 @@
 //    Auth factory to login and get informatio
         .factory('Auth', function ($http, $q, AuthToken) {
             var authFactory = {};
-
+            authFactory.loggedInUser = {};
             //    Log a user in
             authFactory.login = function (email, password) {
                 return $http.post('/api/authenticate', {
@@ -55,11 +55,16 @@
                 }
             };
 
-            //    Get the logged in user
-            authFactory.getUser = function () {
+            //    Get the logged in user's ID
+            authFactory.getUserId = function () {
                 return $http.get('/api/me', {cache: true});
 
             };
+
+            authFactory.getUserInfo = function (userId) {
+              return $http.post('/api/user/' + userId);
+            };
+
 
             return authFactory;
         })

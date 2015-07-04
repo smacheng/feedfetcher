@@ -28,7 +28,8 @@
         // Dependency for ngMaterial
         'ngAria',
         // Material design directives
-        'ngMaterial'
+        'ngMaterial',
+        'PartialTemplates'
     ])
         .config(function ($httpProvider, $mdThemingProvider, $mdIconProvider, paginationTemplateProvider) {
             //    Attach auth interceptor to the http requests
@@ -38,6 +39,7 @@
                 .icon('arrow_back', './assets/images/svg/arrow_back_48.svg', 48)
                 .icon('delete', './assets/images/svg/delete_48.svg', 48)
                 .icon('edit', './assets/images/svg/edit_48.svg', 48)
+                .icon('favorite', './assets/images/svg/favorite_24.svg', 24)
                 .icon('arrow_forward', './assets/images/svg/arrow_forward_48.svg', 48);
         });
 })();

@@ -2,15 +2,16 @@
  * Created by michaelfisher on 6/27/15.
  */
 
-var feedfetcher = require('../index.js');
 var routes = require('./routes');
 
-module.exports = function (app, express) {
+module.exports = function (app, express, feedfetcher) {
     // Grab the express router, so we can implement our own routing
     var apiRouter = express.Router();
 
     // Authenticate, send a token back.
     apiRouter.post('/authenticate', routes.auth.authenticate);
+    // Get user information
+    apiRouter.get('/me', routes.auth.authorize, routes.auth.me);
 
     apiRouter.get('/all/page/:page', routes.item.page);
 
@@ -25,8 +26,12 @@ module.exports = function (app, express) {
     // Delete a feed
     apiRouter.delete('/feeds/:feed_id', routes.auth.authorize, routes.feed.remove);
 
+    // Save an item
+    apiRouter.post('/save', routes.auth.authorize, routes.saved.save);
+
     // force refresh
     apiRouter.get('/fetch', function (req, res) {
+        console.log(feedfetcher);
         feedfetcher.fetch();
         res.json({message: 'refreshing'});
     });

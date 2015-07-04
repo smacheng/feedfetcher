@@ -5,11 +5,6 @@ var mongoose = require('mongoose');
 var mongoosePaginate = require('../lib/mongoose-paginate.js');
 
 var savedItemSchema = new mongoose.Schema({
-    // ID coming from external source
-    _externalID: {
-        type: String,
-        unique: true
-    },
     // The URL that is linked
     url: {
         type: String
@@ -34,12 +29,6 @@ var savedItemSchema = new mongoose.Schema({
     // Reddit or HN (for now)
     source: {
         type: String
-    },
-    // For further use.
-    // This likely will be moved into the User schema.
-    saved: {
-        type: Boolean,
-        default: false
     }
 });
 

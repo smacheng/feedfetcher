@@ -61,8 +61,7 @@ exports.authenticate = function (req, res, next) {
                 // if user is found and password is right
                 // create a token
                 var token = jwt.sign({
-                    name: user.name,
-                    email: user.email
+                    id: user._id
                 }, config.feedfetcherSecret, {
                     expiresInMinutes: 1440 // expires in 24 hours
                 });
@@ -78,4 +77,8 @@ exports.authenticate = function (req, res, next) {
         }
 
     });
+};
+
+exports.me = function (req, res, next) {
+    res.send(req.decoded);
 };

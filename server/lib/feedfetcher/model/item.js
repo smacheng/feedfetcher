@@ -36,12 +36,10 @@ var itemSchema = new mongoose.Schema({
     source: {
         type: String
     },
-    // For further use.
-    // This likely will be moved into the User schema.
-    saved: {
-        type: Boolean,
-        default: false
-    }
+    // For reporting to the UI that this item is saved.
+    savedBy: [{
+        type: String
+    }]
 });
 
 // List all items (unpaginated)

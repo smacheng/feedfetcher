@@ -7,3 +7,4 @@ exports.test = require('./test');
 exports.feed = require('./feed');
 exports.item = require('./item');
 exports.auth = require('./auth');
+exports.saved = require('./saved');

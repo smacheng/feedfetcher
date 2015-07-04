@@ -1,8 +1,9 @@
 <div layout="row" class="pagination" ng-if="1 < pages.length">
-    <md-button class="md-fab" aria-label="Go Back a Page" ng-disabled="pagination.current == 1" ng-click="setCurrent(pagination.current - 1)">
+    <md-button class="md-fab" aria-label="Go Back a Page" ng-disabled="pagination.current == 1" ng-click="pageBack()">
         <md-icon md-svg-icon="arrow_back"></md-icon>
     </md-button>
-    <md-button class="md-fab" aria-label="Go Forward a Page" ng-disabled="pagination.current == pagination.last" ng-click="setCurrent(pagination.current + 1)">
+    <md-button class="md-fab" aria-label="Go Forward a Page" ng-disabled="pagination.current == pagination.last"
+               ng-click="pageForward()">
         <md-icon md-svg-icon="arrow_forward"></md-icon>
     </md-button>
 </div>

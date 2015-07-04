@@ -50,7 +50,7 @@ var processRedditPost = function (redditPost) {
             posted: postedTime,
             source: 'Reddit',
             createdAt: Date.now(),
-            saved: false
+            savedBy: []
         };
         // Checks if an item with the _externalID exists.  If it does, updates, if not, creates it.
         model.Item.update({_externalID: externalID}, item, {upsert: true}, function (err, itemResponse) {
@@ -95,7 +95,7 @@ var processHackerNewsPost = function (hnItemResponse) {
                 posted: postedTime,
                 source: 'HackerNews',
                 createdAt: Date.now(),
-                saved: false
+                savedBy: []
             };
             model.Item.update({_externalID: externalID}, item, {upsert: true}, function (err, itemResponse) {
                 if (err) console.log(err);

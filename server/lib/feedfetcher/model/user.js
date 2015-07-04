@@ -7,6 +7,7 @@ var Schema = mongoose.Schema;
 
 
 var userSchema = new Schema({
+    name: String,
     email: {
         type: String,
         required: true,
@@ -25,7 +26,7 @@ var userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    savedItemss: [{type: Schema.Types.ObjectId, ref: 'SavedItem'}]
+    savedItems: [{type: Schema.Types.ObjectId, ref: 'SavedItem'}]
 });
 
 /**

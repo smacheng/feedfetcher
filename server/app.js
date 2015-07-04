@@ -86,7 +86,7 @@ app.use(cookieParser(config.cookieSecret));
 // Routes =========================================================================
 // ================================================================================
 
-app.use('/api', feedFetcher.api(app, express));
+app.use('/api', feedFetcher.api(app, express, feedFetcher));
 
 // Catch all route ===============================================================
 // If in development, enables redirecting users to front-end
