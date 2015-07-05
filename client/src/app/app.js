@@ -21,13 +21,16 @@
         'itemCtrl',
         //    Service for getting items from API
         'itemService',
+        // Navigation's Controller
         'navCtrl',
-        //    Pagination
-        'angularUtils.directives.dirPagination',
         // Dependency for ngMaterial
         'ngAria',
+        // Paginate
+        'angularUtils.directives.dirPagination',
         // Material design directives
         'ngMaterial',
+        // ng-breadcrumb, for breadcrumbs in toolbar
+        'ng-breadcrumbs',
         // partial templates
         'PartialTemplates'
     ])

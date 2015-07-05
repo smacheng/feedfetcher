@@ -41,7 +41,9 @@
     </md-toolbar>
     <ul class="site-menu" ng-controller="NavigationController as nav">
         <li>
-            <md-button class="nav-item" ng-href="/" ng-class="{active: nav.isActive('/')}">All Items</md-button>
+            <md-button class="nav-item" ng-click="nav.selectSection('All', '/')" ng-class="{active: nav.isActive('/')}">
+                All Items
+            </md-button>
         </li>
         <li ng-if="!main.loggedIn">
             <md-button class="nav-item" ng-href="/login" ng-class="{active: nav.isActive('/login')}">Login</md-button>
