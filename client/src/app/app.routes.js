@@ -28,6 +28,11 @@
                     controller: 'FeedCreateController',
                     controllerAs: 'feed'
                 })
+                .when('/saved', {
+                    templateUrl: 'app/item/list.tpl.html',
+                    controller: 'SavedItemController',
+                    controllerAs: 'item'
+                })
                 // Route for editing a feed
                 .when('/feeds/:feed_id', {
                     templateUrl: 'app/feed/singlefeed.tpl.html',

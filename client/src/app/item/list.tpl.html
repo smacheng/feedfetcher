@@ -1,4 +1,7 @@
 <!-- loading message -->
+<div ng-if="item.processing" class="fade" layout="row" layout-align="center center">
+    <md-progress-linear mg-mode="indeterminate"></md-progress-linear>
+</div>
 <!-- todo:  make this into a directive.  How can we make the loading message dynamic so it's reusable across the application? -->
 <md-list>
     <md-list-item class="md-2-line" dir-paginate="post in item.items | itemsPerPage: 20"
@@ -10,7 +13,8 @@
 
             <p>{{post.title}}</p>
         </div>
-        <md-icon md-svg-icon="favorite" ng-click="item.save(post)"></md-icon>
+        <md-icon ng-if="main.loggedIn" md-svg-icon="favorite" ng-class="{'md-primary' : post.saved}"
+                 ng-click="item.toggleSaved(post)"></md-icon>
     </md-list-item>
 </md-list>
 <dir-pagination-controls on-page-change="item.pageChanged(newPageNumber)"></dir-pagination-controls>

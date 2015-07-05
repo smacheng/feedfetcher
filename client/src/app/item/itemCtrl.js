@@ -12,12 +12,6 @@
             vm.currentPage = 1;
             // Connect to itemService, get a specific page
 
-            vm.loggedIn = Auth.isLoggedIn();
-            // Check to see if a user is logged in on every request
-            $rootScope.$on('$routeChangeStart', function () {
-                vm.loggedIn = Auth.isLoggedIn();
-            });
-
             vm.getResultsPage = function (pageNumber) {
                 vm.processing = true;
                 Item.getPage(pageNumber)
@@ -36,26 +30,53 @@
                 vm.getResultsPage(newPage);
             };
 
-            vm.save = function (item) {
-                // todo:  flatten this promise chain
-                Auth.getUserId()
-                    .success(function (data) {
-                        Item.saveItem({
-                            user_id: data.id,
-                            item_id: item._id
-                        })
-                            .success(function (data) {
-                                item.saved = true;
-                            });
-                    });
+            vm.toggleSaved = function (item) {
+                // todo:  evaluate moving this into a service
+                if (item.saved) {
+                    Item.removeSavedItem(item._id)
+                        .success(function (data) {
+                            item.saved = false;
+                        });
+                } else {
+                    Item.saveItem({
+                        item_id: item._id
+                    })
+                        .success(function (data) {
+                            item.saved = true;
+                        });
+                }
             };
         })
-        .controller('SavedItemController', function (Item) {
+        .controller('SavedItemController', function (Auth, Item) {
             var vm = this;
             vm.totalItems = 0;
             vm.itemsPerPage = 10;
             vm.currentPage = 1;
+            vm.getResultsPage = function (pageNumber) {
+                vm.processing = true;
+                Item.getSavedPage(pageNumber)
+                    .success(function (data) {
+                        vm.totalItems = data.itemCount;
+                        vm.items = data.items;
+                        vm.currentPage = pageNumber;
+                        vm.processing = false;
+                    });
+            };
 
+            vm.toggleSaved = function (item) {
+                console.log(item);
+                if (item.saved) {
+                    Item.removeSavedItem(item.originalId)
+                        .success(function (data) {
+                        item = null;
+                        });
+                }
+            };
+
+            vm.getResultsPage(1);
+            vm.pageChanged = function (newPage) {
+                vm.getResultsPage(newPage);
+            };
         })
         // Directive for <item-listing> tag
         .directive('itemListing', function () {

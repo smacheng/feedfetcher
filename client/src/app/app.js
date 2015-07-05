@@ -34,6 +34,9 @@
         .config(function ($httpProvider, $mdThemingProvider, $mdIconProvider, paginationTemplateProvider) {
             //    Attach auth interceptor to the http requests
             $httpProvider.interceptors.push('AuthInterceptor');
+            $mdThemingProvider.theme('default')
+                .primaryPalette('blue')
+                .accentPalette('orange');
             paginationTemplateProvider.setPath('app/util/paginate/dirPagination.tpl.html');
             $mdIconProvider.icon('menu', './assets/images/svg/menu_24.svg', 24)
                 .icon('arrow_back', './assets/images/svg/arrow_back_48.svg', 48)

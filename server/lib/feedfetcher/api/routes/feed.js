@@ -2,7 +2,15 @@
  * Created by michaelfisher on 7/1/15.
  */
 var Feed = require('../../model/feed.js');
-// list feeds
+
+/**
+ * Feeds GET route
+ * GET /api/feeds
+ * Lists all feeds currently in database
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.list = function (req, res, next) {
     Feed.find({}, function (error, feeds) {
         if (error) res.send(error);
@@ -12,6 +20,14 @@ exports.list = function (req, res, next) {
     });
 };
 
+/**
+ * Feeds POST route
+ * POST /api/feeds
+ * Adds a new feed to the database
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.add = function (req, res, next) {
 
     var feed = new Feed();
@@ -21,11 +37,20 @@ exports.add = function (req, res, next) {
         if (error) {
             res.send(error);
         } else {
+            // Return a success message
             res.json({message: 'Feed added!'});
         }
     });
 };
 
+/**
+ * Single feed GET route
+ * GET /api/feeds/:feed_id
+ * Gets a single feed by ID
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.single = function (req, res, next) {
     Feed.findById(req.params.feed_id, function (error, feed) {
         if (error) res.send(error);
@@ -35,6 +60,13 @@ exports.single = function (req, res, next) {
     });
 };
 
+/**
+ * Single feed PUT route
+ * PUT /api/feeds/:feed_id
+ * Updates a feed
+ * @param req
+ * @param res
+ */
 exports.update = function (req, res) {
     Feed.findById(req.params.feed_id, function (error, feed) {
         if (error) res.send(error);
@@ -54,7 +86,8 @@ exports.update = function (req, res) {
 
 
 /**
- * Find a feed by ID, delete it, and return the remaining Feeds
+ * Used by delete route to delete a feed by ID
+ * TODO:  evaluate if this is even needed.  itemCount is not being returned or utilized.
  * @param feedId
  * @param cb
  */

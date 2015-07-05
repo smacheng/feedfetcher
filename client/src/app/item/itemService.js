@@ -17,17 +17,16 @@
             };
 
             // Get specific page of saved results
-            itemFactory.getSavedPage = function (user, pageNumber) {
-                return $http.get('/api/' + user._id + '/saved/page/' + pageNumber);
+            itemFactory.getSavedPage = function (pageNumber) {
+                return $http.get('/api/saved/page/' + pageNumber);
             };
 
             itemFactory.saveItem = function (saveData) {
-                console.log('save item');
-                return $http.post('/api/save', saveData);
+                return $http.post('/api/saved', saveData);
             };
 
-            itemFactory.getSavedPosts = function (userId) {
-                return $http.get('/api/' + user._id + '/saved');
+            itemFactory.removeSavedItem = function (itemId) {
+                return $http.delete('/api/saved/' + itemId);
             };
 
             return itemFactory;

@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 var mongoosePaginate = require('../lib/mongoose-paginate.js');
 
 var savedItemSchema = new mongoose.Schema({
+    originalId: {
+        type: String
+    },
     // The URL that is linked
     url: {
         type: String
@@ -25,6 +28,10 @@ var savedItemSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    saved: {
+        type: Boolean,
+        default: true
     },
     // Reddit or HN (for now)
     source: {

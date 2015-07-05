@@ -21,9 +21,9 @@
 </head>
 
 <body ng-app="feedApp" layout="row" ng-controller="MainController as main">
-<nav-bar></nav-bar>
-<div flex layout="column" tabindex="-1" role="main" class="md-whiteframe-z2">
-    <md-toolbar layout="row" class="md-whiteframe-z1">
+<nav-bar class="site-navbar"></nav-bar>
+<div flex layout="column" tabindex="-1" role="main">
+    <md-toolbar layout="row" class="md-whiteframe-z1 site-content-toolbar md-default-theme">
         <md-button class="menu" hide-gt-sm ng-click="main.toggleNav()" aria-label="Show Navigation">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>

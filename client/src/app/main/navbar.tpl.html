@@ -1,47 +1,37 @@
 <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
             md-component-id="left"
             md-is-locked-open="$mdMedia('gt-sm')">
-    <md-toolbar class="md-whiteframe-z1">
+    <md-toolbar class="nav-header">
         <h1>FeedFetcher</h1>
     </md-toolbar>
     <md-list>
-        <a href="/">
-            <md-list-item>
-                <md-button class="nav-item">
+        <md-list-item>
+            <md-button class="md-primary nav-item">
                     All
                 </md-button>
-            </md-list-item>
-        </a>
-        <a ng-if="!main.loggedIn" href="/login">
-            <md-list-item>
-                <md-button class="nav-item">
+        </md-list-item>
+        <md-list-item ng-if="!main.loggedIn" class="fade">
+            <md-button class="md-primary nav-item">
                     Login
                 </md-button>
-            </md-list-item>
-        </a>
-        <a ng-if="main.loggedIn" href="/search">
-            <md-list-item>
-                <md-button class="nav-item">
+        </md-list-item>
+        <md-list-item ng-if="main.loggedIn" class="fade">
+            <md-button class="md-primary nav-item">
                     Search
                 </md-button>
-            </md-list-item>
-        </a>
-        <a ng-if="main.loggedIn" href="/saved">
-            <md-list-item>
-                <md-button class="nav-item">
+        </md-list-item>
+        <md-list-item ng-if="main.loggedIn" class="fade">
+            <md-button class="md-primary nav-item">
                     Saved
                 </md-button>
-            </md-list-item>
-        </a>
-        <a ng-if="main.loggedIn" href="/feeds">
-            <md-list-item>
-                <md-button class="nav-item">
+        </md-list-item>
+        <md-list-item ng-if="main.loggedIn" class="fade">
+            <md-button class="md-primary nav-item">
                     Feeds
                 </md-button>
-            </md-list-item>
-        </a>
-        <md-list-item ng-if="main.loggedIn">
-            <md-button class="nav-item" ng-click="main.doLogout()">
+        </md-list-item>
+        <md-list-item class="fade" ng-if="main.loggedIn">
+            <md-button ng-click="main.doLogout()" class="md-primary nav-item">
                 Logout
             </md-button>
         </md-list-item>

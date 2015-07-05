@@ -5,14 +5,17 @@
 var routes = require('./routes');
 
 module.exports = function (app, express, feedfetcher) {
+
     // Grab the express router, so we can implement our own routing
     var apiRouter = express.Router();
 
     // Authenticate, send a token back.
     apiRouter.post('/authenticate', routes.auth.authenticate);
+
     // Get user information
     apiRouter.get('/me', routes.auth.authorize, routes.auth.me);
 
+    // Get items by page
     apiRouter.get('/all/page/:page', routes.item.page);
 
     // Feeds
@@ -26,12 +29,15 @@ module.exports = function (app, express, feedfetcher) {
     // Delete a feed
     apiRouter.delete('/feeds/:feed_id', routes.auth.authorize, routes.feed.remove);
 
+    // Get saved items by user
+    apiRouter.get('/saved/page/:page_number', routes.auth.authorize, routes.saved.page);
     // Save an item
-    apiRouter.post('/save', routes.auth.authorize, routes.saved.save);
+    apiRouter.post('/saved', routes.auth.authorize, routes.saved.save);
+    // Delete a saved item
+    apiRouter.delete('/saved/:item_id', routes.auth.authorize, routes.saved.delete);
 
     // force refresh
-    apiRouter.get('/fetch', function (req, res) {
-        console.log(feedfetcher);
+    apiRouter.get('/fetch', routes.auth.authorize, function (req, res) {
         feedfetcher.fetch();
         res.json({message: 'refreshing'});
     });

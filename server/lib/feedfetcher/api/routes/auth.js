@@ -1,11 +1,20 @@
 /**
  * Created by michaelfisher on 7/1/15.
  */
-var User = require('../../model/user.js');
+var models = require('../../model');
 var jwt = require('jsonwebtoken');
 var config = require('../../../../appconfig.js');
 
+/**
+ * Middleware that protects routes that perform CUD operations on DB
+ * TODO:  Potential code duplication (saved.js also checks tokens).  Evaluate whether or not this should be moved into a separate function.
+ * @param req
+ * @param res
+ * @param next
+ */
+
 exports.authorize = function (req, res, next) {
+    // Grab the token from where-ever it is
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     //    Decode token
@@ -33,9 +42,17 @@ exports.authorize = function (req, res, next) {
     }
 };
 
+/**
+ * Auth POST route
+ * POST /api/authenticate
+ * Validates a user's credentials, configures a JWT for future usage.
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.authenticate = function (req, res, next) {
     // find the user
-    User.findOne({
+    models.User.findOne({
         email: req.body.email
     }).select('name username password').exec(function (err, user) {
 
