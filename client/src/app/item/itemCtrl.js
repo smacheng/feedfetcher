@@ -10,6 +10,7 @@
             vm.totalItems = 0;
             vm.itemsPerPage = 10;
             vm.currentPage = 1;
+            vm.type = 'all';
             // Connect to itemService, get a specific page
 
             vm.getResultsPage = function (pageNumber) {
@@ -52,6 +53,7 @@
             vm.totalItems = 0;
             vm.itemsPerPage = 10;
             vm.currentPage = 1;
+            vm.type = 'saved';
             vm.getResultsPage = function (pageNumber) {
                 vm.processing = true;
                 Item.getSavedPage(pageNumber)
@@ -64,11 +66,12 @@
             };
 
             vm.toggleSaved = function (item) {
-                console.log(item);
                 if (item.saved) {
-                    Item.removeSavedItem(item.originalId)
+                    Item.removeSavedItem(item._id)
                         .success(function (data) {
-                        item = null;
+                            indexOfItem = vm.items.indexOf(item);
+                            console.log(indexOfItem);
+                            vm.items.splice(indexOfItem, 1);
                         });
                 }
             };

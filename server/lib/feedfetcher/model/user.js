@@ -26,7 +26,7 @@ var userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    savedItems: [{type: Schema.Types.ObjectId, ref: 'SavedItem'}]
+    savedItems: [{type: Schema.Types.ObjectId, ref: 'Item'}]
 });
 
 /**

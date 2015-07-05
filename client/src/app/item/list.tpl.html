@@ -13,7 +13,11 @@
 
             <p>{{post.title}}</p>
         </div>
-        <md-icon ng-if="main.loggedIn" md-svg-icon="favorite" ng-class="{'md-primary' : post.saved}"
+        <md-icon ng-if="main.loggedIn && item.type == 'all'" md-svg-icon="favorite"
+                 ng-class="{'md-primary' : post.saved}"
+                 ng-click="item.toggleSaved(post)"></md-icon>
+        <md-icon ng-if="main.loggedIn && item.type == 'saved'" md-svg-icon="favorite"
+                 ng-class="{'md-primary' : post.saved}"
                  ng-click="item.toggleSaved(post)"></md-icon>
     </md-list-item>
 </md-list>

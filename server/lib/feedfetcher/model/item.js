@@ -26,11 +26,9 @@ var itemSchema = new mongoose.Schema({
     posted: {
         type: Date
     },
-    // Added to Mongo at this time.  This is the TTL property.
+    // Added to Mongo at this time.
     createdAt: {
-        type: Date,
-        // 24 hours (in seconds)
-        expires: 86400
+        type: Date
     },
     // Reddit or HN (for now)
     source: {
