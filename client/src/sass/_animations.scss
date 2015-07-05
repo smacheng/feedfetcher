@@ -1,0 +1,7 @@
+.fade.ng-enter {
+  @include fadeIn();
+}
+
+.fade.ng-hide-remove {
+  @include fadeOut();
+}

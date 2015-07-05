@@ -2,11 +2,11 @@
  * SITE MENU
  ************/
 .site-navbar {
-  background: #106CC8;
+  background-color: #106CC8 !important;
 }
 
 .nav-header {
-  background-color: #106CC8;
+  background-color: $clr-blue-900;
   background: linear-gradient(#185694, #106cc8);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #185694), color-stop(1, #106cc8));
   background: -webkit-linear-gradient(top, #185694 0%, #106cc8 100%);
@@ -37,11 +37,6 @@
   min-width: 218px;
 }
 
-.site-sidenav md-list-item {
-  margin: 0;
-  padding: 0;
-}
-
 .site-logotype {
   color: white;
   text-align: center;
@@ -49,6 +44,30 @@
   font-size: 26px;
 }
 
-.nav-item {
+.site-menu li {
   margin: 0;
+  .active {
+    background-color: $clr-blue-400;
+    background-color: rgba(158, 158, 158, 0.2);
+  }
+}
+
+.site-menu .nav-item {
+  border-radius: 0;
+  color: white;
+  cursor: pointer;
+  display: block;
+  align-items: inherit;
+  line-height: 40px;
+  margin: 0;
+  max-height: 40px;
+  overflow: hidden;
+  padding: 0px 16px;
+  text-align: left;
+  &:hover {
+    background-color: #106cc8;
+  }
+  text-decoration: none;
+  white-space: normal;
+  width: 100%;
 }

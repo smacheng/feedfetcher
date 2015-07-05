@@ -21,14 +21,14 @@
         'itemCtrl',
         //    Service for getting items from API
         'itemService',
+        'navCtrl',
         //    Pagination
         'angularUtils.directives.dirPagination',
-        // Smooth Scroll for switching pages
-        'smoothScroll',
         // Dependency for ngMaterial
         'ngAria',
         // Material design directives
         'ngMaterial',
+        // partial templates
         'PartialTemplates'
     ])
         .config(function ($httpProvider, $mdThemingProvider, $mdIconProvider, paginationTemplateProvider) {

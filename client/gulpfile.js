@@ -129,12 +129,10 @@ gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '../server/build-dev/*', '
 
 // Watch files for changes & reload
 gulp.task('live', function () {
-    gulp.watch(['src/*.html'], ['live-task']);
-    gulp.watch(['vendor/min/*.css'], ['live-task']);
-    gulp.watch(['src/app/**/*.js'], ['live-task']);
-    gulp.watch(['src/app/**/**/*.tpl.html'], ['live-task']);
-    gulp.watch(['src/sass/**/*.scss'], ['live-task']);
-    gulp.watch(['src/common/images/**/*'], ['live-task']);
+    gulp.watch(['src/app/**/**/*.tpl.html', 'src/app/**/*.js', '!src/app/util/partials'], ['live-script']);
+    gulp.watch('src/sass/**/*.scss', ['styles']);
+    gulp.watch('src/*.html', ['html']);
+    gulp.watch('src/common/images/**/*', ['images']);
 });
 
 // Build and serve the output from the dist build
@@ -159,3 +157,8 @@ gulp.task('live-task', function () {
     runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib', 'scripts']);
 
 });
+
+gulp.task('live-script', function () {
+    runSequence('html2js', ['ng']);
+});
+

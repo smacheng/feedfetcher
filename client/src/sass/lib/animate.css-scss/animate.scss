@@ -7,13 +7,18 @@
 // Or, @import specific partials (e.g. @import "_attention/_bounce.scss";
 // 
 //-----------------------------------------------------------------------
+
 // Always required
 @import "_properties";
-// Import the animations
-@import //"_attention/attention.scss", //"_bouncing-entrances/bouncing-entrances.scss", //"_bouncing-exits/bouncing-exits.scss", "_fading-entrances/fading-entrances.scss", "_fading-exits/fading-exits.scss";
 
-//"_flippers/flippers.scss",
-//"_lightspeed/lightspeed.scss",
-//"_rotating-entrances/rotating-entrances.scss",
-//"_rotating-exits/rotating-exits.scss",
-//"_specials/specials.scss";
+// Import the animations
+@import "_attention/attention.scss",
+"_bouncing-entrances/bouncing-entrances.scss",
+"_bouncing-exits/bouncing-exits.scss",
+"_fading-entrances/fading-entrances.scss",
+"_fading-exits/fading-exits.scss",
+"_flippers/flippers.scss",
+"_lightspeed/lightspeed.scss",
+"_rotating-entrances/rotating-entrances.scss",
+"_rotating-exits/rotating-exits.scss",
+"_specials/specials.scss";

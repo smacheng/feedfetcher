@@ -16,12 +16,52 @@
     <!-- Local Styles -->
     <link rel="stylesheet" href="assets/styles/styles.css">
     <!-- /CSS -->
-
+    <!-- JS -->
+    <!-- Angular CDN -->
+    <script src="https://code.angularjs.org/1.4.1/angular.js"></script>
+    <!-- Angular Route-->
+    <script src="https://code.angularjs.org/1.4.1/angular-route.js"></script>
+    <!-- Angular Animate -->
+    <script src="https://code.angularjs.org/1.4.1/angular-animate.js"></script>
+    <!-- ngAria -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.js"></script>
+    <!-- Angular Material-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.js"></script>
+    <!-- App -->
+    <script src="app/app.js"></script>
 
 </head>
 
 <body ng-app="feedApp" layout="row" ng-controller="MainController as main">
-<nav-bar class="site-navbar"></nav-bar>
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')">
+    <md-toolbar class="nav-header">
+        <h1>FeedFetcher</h1>
+    </md-toolbar>
+    <ul class="site-menu" ng-controller="NavigationController as nav">
+        <li>
+            <md-button class="nav-item" ng-href="/" ng-class="{active: nav.isActive('/')}">All Items</md-button>
+        </li>
+        <li ng-if="!main.loggedIn">
+            <md-button class="nav-item" ng-href="/login" ng-class="{active: nav.isActive('/login')}">Login</md-button>
+        </li>
+        <li ng-if="main.loggedIn">
+            <md-button class="nav-item" ng-href="/search" ng-class="{active: nav.isActive('/search')}">Search
+            </md-button>
+        </li>
+        <li ng-if="main.loggedIn">
+            <md-button class="nav-item" ng-href="/saved" ng-class="{active: nav.isActive('/saved')}">Saved</md-button>
+        </li>
+        <li ng-if="main.loggedIn">
+            <md-button class="nav-item" ng-href="/feeds" ng-class="{active: nav.isActive('/feeds')}">Feeds</md-button>
+        </li>
+        <li ng-if="main.loggedIn">
+            <md-button class="nav-item" href="#" ng-click="main.doLogout()">Logout</md-button>
+        </li>
+    </ul>
+</md-sidenav>
+
 <div flex layout="column" tabindex="-1" role="main">
     <md-toolbar layout="row" class="md-whiteframe-z1 site-content-toolbar md-default-theme">
         <md-button class="menu" hide-gt-sm ng-click="main.toggleNav()" aria-label="Show Navigation">
@@ -33,18 +73,5 @@
 </div>
 
 
-<!-- JS -->
-<!-- Angular CDN -->
-<script src="https://code.angularjs.org/1.4.1/angular.js"></script>
-<!-- Angular Route-->
-<script src="https://code.angularjs.org/1.4.1/angular-route.js"></script>
-<!-- Angular Animate -->
-<script src="https://code.angularjs.org/1.4.1/angular-animate.js"></script>
-<!-- ngAria -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular-aria.js"></script>
-<!-- Angular Material-->
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.js"></script>
-<!-- App -->
-<script src="app/app.js"></script>
 </body>
 </html>
