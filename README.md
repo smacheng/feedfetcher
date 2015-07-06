@@ -66,15 +66,13 @@ The project currently works as a part of Ninety, and work is proceeding to de-ta
 * Additional build steps, as well as folder structure are inspired by [ng-boilerplate](http://joshdmiller.github.io/ng-boilerplate/#/home).  I wanted to take this in another direction, but I feel that the spirit is there.  I long for the day where there is a Gulp/Sass ng-boilerplate.
 * I am currently using Bootstrap for layout, but I am migrating this project over to [Angular Material](https://material.angularjs.org/latest/#/).  While I think Bootstrap is a fine framework, and use it in other things, I don't think the additional weight is adding anything to this project.
 
-## Roadmap - updated 07/02/2015
+## Roadmap - updated 07/06/2015
 
 A rough idea of plans for this application:
-* ~~Finish untangling the application by fixing paths in Angular files~~
-* ~~Extract Bootsrap/jQuery, replace with Angular Material/custom layout~~
-* Add ability to save posts.
-* Add ability to search through posts
 * Test the entire damn thing!
-* Improve build process to concatenate javascript into one large file, and replace references in index.html to use minified versions in PROD
+* Improve the styling and layout.
+* Improve Build process
+* Improve Gulpfile, which is a bit hacky at this point.
 * Enable configuration of feed fetch time
 * Force a feed refresh
 * Enable RSS Feed integration
