@@ -32,6 +32,9 @@ module.exports = function (app, express, feedfetcher) {
     // Search based on params
     apiRouter.get('/search/:search_params', routes.auth.authorize, routes.search.getSearch);
 
+    // Save a search result item to Mongo
+    apiRouter.post('/search', routes.auth.authorize, routes.search.saveSearchItem);
+
     // Get saved items by user
     apiRouter.get('/saved/page/:page_number', routes.auth.authorize, routes.saved.page);
     // Save an item

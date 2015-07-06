@@ -41,7 +41,7 @@
     </md-toolbar>
     <ul class="site-menu" ng-controller="NavigationController as nav">
         <li>
-            <md-button class="nav-item" ng-click="nav.selectSection('All', '/')" ng-class="{active: nav.isActive('/')}">
+            <md-button class="nav-item" ng-href="/" ng-class="{active: nav.isActive('/')}">
                 All Items
             </md-button>
         </li>

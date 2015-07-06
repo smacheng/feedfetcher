@@ -22,7 +22,7 @@ exports.authorize = function (req, res, next) {
         jwt.verify(token, config.feedfetcherSecret, function (err, decoded) {
             // Token authentication failed, return message/403
             if (err) {
-                res.sendStatus(403).json({
+                res.status(403).json({
                     success: false,
                     message: 'Failed to authenticate token'
                 });

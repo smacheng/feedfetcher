@@ -4,6 +4,7 @@
 var request = require('superagent');
 var async = require('async');
 var feedParser = require('../../feedparser.js');
+var models = require('../../model');
 
 var processSearch = function (searchParams, cb) {
     async.waterfall([
@@ -43,5 +44,40 @@ exports.getSearch = function (req, res, next) {
 };
 
 exports.saveSearchItem = function (req, res, next) {
+//    Get the info from the body, transpose it into the appropriate fields
+    var item = {};
+    if (req.body._externalID) {
+        item._externalID = req.body._externalID;
+    }
+    if (req.body.url) {
+        item.url = req.body.url;
+    }
+    if (req.body.title) {
+        item.title = req.body.title;
+    }
+    if (req.body.score) {
+        item.score = req.body.score;
+    }
+    if (req.body.posted) {
+        item.posted = req.body.posted;
+    }
+    if (req.body.source) {
+        item.source = req.body.source;
+    }
+    if (req.body.createdAt) {
+        item.createdAt = req.body.createdAt;
+    }
+    if (req.body.savedBy) {
+        item.savedBy = req.body.savedBy;
+    }
 
+    models.Item.update({_externalID: item._externalID}, item, {upsert: true}, function (err, itemResponse) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.json({message: 'success'});
+        }
+
+    });
 };

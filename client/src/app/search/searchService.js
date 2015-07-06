@@ -11,6 +11,9 @@
                 return $http.get('/api/search/' + params);
             };
 
+            searchFactory.save = function (itemData) {
+                return $http.post('/api/search', itemData);
+            };
             return searchFactory;
         });
 })();
