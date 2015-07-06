@@ -1,8 +1,7 @@
 <!-- loading message -->
 <div ng-if="item.processing" class="fade" layout="row" layout-align="center center">
-    <md-progress-linear mg-mode="indeterminate"></md-progress-linear>
+    <md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
 </div>
-<!-- todo:  make this into a directive.  How can we make the loading message dynamic so it's reusable across the application? -->
 <md-list>
     <md-list-item class="md-2-line" dir-paginate="post in item.items | itemsPerPage: 20"
                   total-items="item.totalItems" current-page="item.currentPage" ng-href="post.url">

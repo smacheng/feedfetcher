@@ -21,6 +21,8 @@
         'itemCtrl',
         //    Service for getting items from API
         'itemService',
+        'searchService',
+        'searchCtrl',
         // Navigation's Controller
         'navCtrl',
         // Dependency for ngMaterial

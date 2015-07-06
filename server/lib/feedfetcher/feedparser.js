@@ -104,4 +104,68 @@ var processHackerNewsPost = function (hnItemResponse) {
     }
 };
 
+// Search parsing
+Parser.processSearchResponse = function (source, results) {
+    var processedResults = [];
+    if (source == 'Reddit') {
+        processedResults = processRedditSearchResults(results);
+    } else {
+        processedResults = processHackerNewsSearchResults(results);
+    }
+    return processedResults;
+};
+
+var processRedditSearchPost = function (redditPost) {
+    if (redditPost) {
+        var externalID = redditPost.id;
+        // Convert from Unix Time (in seconds) to milliseconds
+        var postedTime = new Date(redditPost.created * 1000).toISOString();
+        var item = {
+            _externalID: externalID,
+            url: redditPost.url,
+            title: redditPost.title,
+            score: redditPost.score,
+            posted: postedTime,
+            source: 'Reddit',
+            createdAt: Date.now()
+        };
+        return item;
+    }
+};
+
+var processHackerNewsSearchPost = function (hnPost) {
+    if (hnPost) {
+        var externalID = hnPost.objectID;
+        var item = {
+            _externalID: externalID,
+            url: hnPost.url,
+            title: hnPost.title,
+            score: hnPost.points,
+            posted: hnPost.created_at,
+            source: 'HackerNews',
+            createdAt: Date.now()
+        };
+        return item;
+    }
+};
+
+var processRedditSearchResults = function (results) {
+    var processedResultsArray = [];
+    for (i = 0; i < results.length; i++) {
+        var item = processRedditSearchPost(results[i].data);
+        processedResultsArray.push(item);
+    }
+    return processedResultsArray;
+};
+
+var processHackerNewsSearchResults = function (results) {
+    var processedResultsArray = [];
+    for (i = 0; i < results.length; i++) {
+        var item = processHackerNewsSearchPost(results[i]);
+        processedResultsArray.push(item);
+    }
+    return processedResultsArray;
+};
+
+
 module.exports = Parser;

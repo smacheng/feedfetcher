@@ -1,0 +1,28 @@
+<md-content layout="column">
+    <form ng-submit="search.search()">
+        <md-input-container>
+            <label>URL</label>
+            <input ng-model="search.searchData.parameter" type="text">
+        </md-input-container>
+        <md-input-container>
+            <md-button type="submit" class="md-raised md-primary">Go</md-button>
+        </md-input-container>
+    </form>
+    <div ng-if="search.processing" class="fade" layout="row" layout-align="center center">
+        <md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-list>
+        <md-list-item class="md-2-line" ng-repeat="post in search.items">
+            <div class="md-list-item-text" id="{{post._id}}">
+                <h3 ng-if="post.source === 'Reddit'">Reddit</h3>
+
+                <h3 ng-if="post.source === 'HackerNews'">Hacker News</h3>
+
+                <p>{{post.title}}</p>
+            </div>
+            <md-icon md-svg-icon="favorite"
+                     ng-class="{'md-primary' : post.saved}"
+                     ng-click="search.save(post)"></md-icon>
+        </md-list-item>
+    </md-list>
+</md-content>

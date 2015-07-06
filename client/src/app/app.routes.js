@@ -16,6 +16,11 @@
                     controller: 'LoginController',
                     controllerAs:  'login'
                 })
+                .when('/search', {
+                    templateUrl: 'app/search/search.tpl.html',
+                    controller: 'SearchController',
+                    controllerAs: 'search'
+                })
                 // Route for viewing all feeds
                 .when('/feeds', {
                     templateUrl: 'app/feed/feeds.tpl.html',
