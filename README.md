@@ -54,6 +54,12 @@ module.exports = {
 
 In future releases, this process will be simplified.  FeedFetcher is very much a work in progress.
 
+## Testing
+
+Tests can currently be ran on the SERVER SIDE only.  I am working diligently to write tests for client side.
+
+From the server folder, tests can be ran using `gulp test`.  Future commits will enable NPM test.
+
 ## Project Status
 
 Originally, FeedFetcher was embedded into my personal web site, https://mphfish.com (you can view the code for it [here](https://github.com/mphfish/ninety).  However, as development proceeded, I ran into many problems due to trying to graft it onto a blogging platform.
@@ -69,7 +75,8 @@ The project currently works as a part of Ninety, and work is proceeding to de-ta
 ## Roadmap - updated 07/06/2015
 
 A rough idea of plans for this application:
-* Test the entire damn thing!
+* Test the entire damn thing! - Server Side has tests.
+* Add to travis and code climate for test
 * Improve the styling and layout.
 * Improve Build process
 * Improve Gulpfile, which is a bit hacky at this point.

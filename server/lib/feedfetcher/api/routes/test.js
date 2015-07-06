@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 6/21/15.
  */
+/*jslint node: true */
+"use strict";
 var config = require('../../../../appconfig');
 var User = require('../../model/user');
 
@@ -23,7 +25,7 @@ exports.create = function (req, res, next) {
         } else {
             return res.json({'creation': false});
         }
-    })
+    });
 };
 
 /**

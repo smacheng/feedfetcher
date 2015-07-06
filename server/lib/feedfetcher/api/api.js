@@ -1,8 +1,11 @@
 /**
  * Created by michaelfisher on 6/27/15.
  */
-
+/*jslint node: true */
+"use strict";
 var routes = require('./routes');
+var config = require('../../../appconfig.js');
+
 
 module.exports = function (app, express, feedfetcher) {
 
@@ -43,10 +46,17 @@ module.exports = function (app, express, feedfetcher) {
     apiRouter.delete('/saved/:item_id', routes.auth.authorize, routes.saved.delete);
 
     // force refresh
+    // todo:  refactor this out into it's own file
     apiRouter.get('/fetch', routes.auth.authorize, function (req, res) {
         feedfetcher.fetch();
         res.json({message: 'refreshing'});
     });
+
+    // Route to create test user
+    // Should eventually be supplanted by normal routes for user registration
+    apiRouter.get('/test', routes.user.testCreate);
+
+    apiRouter.delete('/test/:user_id', routes.auth.authorize, routes.user.testDelete);
 
     // Return configured API Router
     return apiRouter;

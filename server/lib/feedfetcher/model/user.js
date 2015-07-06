@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 6/18/15.
  */
+/*jslint node: true */
+"use strict";
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
@@ -16,7 +18,7 @@ var userSchema = new Schema({
         },
         validate: [
             function (email) {
-                return (email.match(/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i) != null),
+                return (email.match(/[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i) !== null),
                     'Invalid email';
             }
         ]

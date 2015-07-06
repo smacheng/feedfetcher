@@ -1,7 +1,8 @@
 /**
  * Created by michaelfisher on 6/28/15.
  */
-
+/*jslint node: true */
+"use strict";
 var model = require('./model');
 var request = require('superagent');
 
@@ -29,7 +30,7 @@ Parser.processResponse = function (response) {
  * @param redditResponseArray
  */
 var processRedditResponse = function (redditResponseArray) {
-    for (i = 0; i < redditResponseArray.length; i++) {
+    for (var i = 0; i < redditResponseArray.length; i++) {
         processRedditPost(redditResponseArray[i].data);
     }
 };
@@ -59,19 +60,21 @@ var processRedditPost = function (redditPost) {
         });
     }
 };
-
+var fetchDeeperHackerNewsInfo = function (urlString) {
+    request.get(urlString)
+        .end(function (error, res) {
+            if (error) console.log(error);
+            processHackerNewsPost(res);
+        });
+};
 /**
  * Walks an array of HN Item ID's, grabs the actual item
  * @param hnResponseArray
  */
 var fetchHackerNewsPost = function (hnResponseArray) {
-    for (i = 0; i < hnResponseArray.length; i++) {
+    for (var i = 0; i < hnResponseArray.length; i++) {
         var urlString = 'https://hacker-news.firebaseio.com/v0/item/' + hnResponseArray[i] + '.json?print=pretty';
-        request.get(urlString)
-            .end(function (error, res) {
-                if (error) console.log(error);
-                processHackerNewsPost(res);
-            })
+        fetchDeeperHackerNewsInfo(urlString);
     }
 };
 
@@ -151,7 +154,7 @@ var processHackerNewsSearchPost = function (hnPost) {
 
 var processRedditSearchResults = function (results) {
     var processedResultsArray = [];
-    for (i = 0; i < results.length; i++) {
+    for (var i = 0; i < results.length; i++) {
         var item = processRedditSearchPost(results[i].data);
         processedResultsArray.push(item);
     }
@@ -160,7 +163,7 @@ var processRedditSearchResults = function (results) {
 
 var processHackerNewsSearchResults = function (results) {
     var processedResultsArray = [];
-    for (i = 0; i < results.length; i++) {
+    for (var i = 0; i < results.length; i++) {
         var item = processHackerNewsSearchPost(results[i]);
         processedResultsArray.push(item);
     }

@@ -1,7 +1,8 @@
 /**
  * Created by michaelfisher on 6/18/15.
  */
-
+/*jslint node: true */
+"use strict";
 exports.user = require('./user');
 exports.test = require('./test');
 exports.feed = require('./feed');

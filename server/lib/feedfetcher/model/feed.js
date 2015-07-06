@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 6/27/15.
  */
+/*jslint node: true */
+"use strict";
 var mongoose = require('mongoose');
 
 // Create Schema

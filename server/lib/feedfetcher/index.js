@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 6/27/15.
  */
+/*jslint node: true */
+"use strict";
 var request = require('superagent');
 var async = require('async');
 var parser = require('./feedparser');
@@ -35,19 +37,23 @@ FeedFetcher.api = require('./api/api.js');
  */
 FeedFetcher.model = require('./model/index.js');
 
+
+var fetchFeed = function (feed) {
+    request.get(feed.url)
+        .end(function (err, res) {
+            if (err) console.log(err);
+            parser.processResponse(res);
+        });
+};
 /**
  * Fetches all feeds currently loaded.
  * TODO:  Make this method get the list of feeds from Mongo so it is up to date before fetching.
+ * TODO:  Have this method accept a callback so we know when fetching is completed.
  */
 FeedFetcher.fetch = function () {
-    for (i = 0; i < feeds.length; i++) {
+    for (var i = 0; i < feeds.length; i++) {
         var feed = feeds[i];
-        request.get(feed.url)
-            .end(function (err, res) {
-                console.log('feed fetched');
-                if (err) console.log(err);
-                parser.processResponse(res);
-            })
+        fetchFeed(feed);
     }
 };
 

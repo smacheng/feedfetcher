@@ -1,3 +1,5 @@
+/*jslint node: true */
+"use strict";
 /**
  * Created by michaelfisher on 7/1/15.
  */
@@ -32,10 +34,10 @@ exports.authorize = function (req, res, next) {
 
                 next(); // go to next route.
             }
-        })
+        });
     } else {
         //    No token
-        res.sendStatus(403).json({
+        res.status(403).json({
             success: false,
             message: 'No token provided'
         });

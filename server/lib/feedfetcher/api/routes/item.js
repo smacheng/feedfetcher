@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 7/1/15.
  */
+/*jslint node: true */
+"use strict";
 var model = require('../../model');
 var jwt = require('jsonwebtoken');
 var config = require('../../../../appconfig.js');
@@ -28,11 +30,11 @@ exports.page = function (req, res) {
             processLoggedInResults(results, token, function () {
                 // Processing complete, return the response
                 res.json({itemCount: itemCount, items: results});
-            })
+            });
         } else {
             // No token, so no results can be saved.
             // Loop through the items, sanitize the response
-            for (i = 0; i < results.length; i++) {
+            for (var i = 0; i < results.length; i++) {
                 results[i] = results[i].toObject();
                 var item = results[i];
                 // It could be argued that User ID's are not sensitive, as they are randomized
@@ -69,7 +71,7 @@ var processLoggedInResults = function (results, token, cb) {
             // Convert it to a regular String
             var userIdString = user._id.toString();
             // Loop through the results
-            for (i = 0; i < results.length; i++) {
+            for (var i = 0; i < results.length; i++) {
                 // Convert them to standard Objects
                 results[i] = results[i].toObject();
                 var item = results[i];

@@ -1,7 +1,8 @@
 /**
  * Created by michaelfisher on 7/3/15.
  */
-
+/*jslint node: true */
+"use strict";
 var models = require('../../model');
 var async = require('async');
 var _ = require('underscore');
@@ -20,7 +21,7 @@ exports.page = function (req, res) {
                     _id: {$in: user.savedItems}
                 }, {page: req.params.page_number, limit: 20},
                 function (err, results, pageCount, itemCount) {
-                    for (i = 0; i < results.length; i++) {
+                    for (var i = 0; i < results.length; i++) {
                         // Convert them to standard Objects
                         results[i] = results[i].toObject();
                         var item = results[i];
@@ -64,11 +65,11 @@ var saveItem = function (userId, itemId, cb) {
         function (user, item, next) {
             // Sanity check to make sure the the user's saved items don't already contain the ID.
             if (!_.contains(user.savedItems, item._id)) {
-                user.savedItems.push(item._id)
+                user.savedItems.push(item._id);
             }
             user.save(function (err, user) {
                 next(err, user, item);
-            })
+            });
         },
         function (user, item, next) {
             // Now we need to tell the item that it is saved, so that it appears in the results appropriately
@@ -100,7 +101,7 @@ exports.save = function (req, res) {
         } else {
             res.json({success: true});
         }
-    })
+    });
 };
 /**
  * Asynchronous function to:
@@ -117,30 +118,29 @@ var deleteSavedItem = function (userId, itemId, cb) {
             //    Now go into the regular items, find the item with that id
             models.Item.findById(itemId, function (err, item) {
                 next(err, item);
-            })
+            });
         },
         function (item, next) {
             models.User.findById(userId, function (err, user) {
-                next(err, item, user)
-            })
+                next(err, item, user);
+            });
         },
         function (item, user, next) {
             var idIndex = user.savedItems.indexOf(item._id);
             user.savedItems.splice(idIndex, 1);
             user.save(function (err, user) {
                 next(err, item);
-            })
+            });
         },
 
         function (item, next) {
             //    Remove the user id from that item's savedBy
-            console.log(userId);
             var idIndex = item.savedBy.indexOf(userId);
             item.savedBy.splice(idIndex, 1);
             //    Save the item
             item.save(function (err, item) {
                 next(err, item);
-            })
+            });
         },
         function (item, next) {
             next(null, item);
@@ -156,5 +156,5 @@ exports.delete = function (req, res) {
         } else {
             res.json({deleted: true});
         }
-    })
+    });
 };

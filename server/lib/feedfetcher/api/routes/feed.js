@@ -1,8 +1,10 @@
 /**
  * Created by michaelfisher on 7/1/15.
  */
+/*jslint node: true */
+"use strict";
 var Feed = require('../../model/feed.js');
-
+var async = require('async');
 /**
  * Feeds GET route
  * GET /api/feeds
@@ -16,7 +18,7 @@ exports.list = function (req, res, next) {
         if (error) res.send(error);
 
         //    Return the feeds
-        res.json(feeds)
+        res.json({feeds: feeds});
     });
 };
 
@@ -33,12 +35,12 @@ exports.add = function (req, res, next) {
     var feed = new Feed();
     feed.url = req.body.url;
 
-    feed.save(function (error) {
+    feed.save(function (error, feed) {
         if (error) {
             res.send(error);
         } else {
             // Return a success message
-            res.json({message: 'Feed added!'});
+            res.json({message: 'Feed added!', feed: feed});
         }
     });
 };
@@ -56,7 +58,7 @@ exports.single = function (req, res, next) {
         if (error) res.send(error);
 
         //    Return that feed
-        res.json(feed);
+        res.json({feed: feed});
     });
 };
 
@@ -79,7 +81,7 @@ exports.update = function (req, res) {
             if (error) res.send(error);
 
             //    Return a message
-            res.json({message: 'Feed updated!'});
+            res.json({message: 'Feed updated!', feed: feed});
         });
     });
 };
@@ -111,7 +113,7 @@ exports.remove = function (req, res) {
     buildDeleteResponse(req.params.feed_id, function (error, feeds) {
         if (error) res.send(error);
         res.json({message: 'Feed deleted', feeds: feeds});
-    })
+    });
 };
 
 

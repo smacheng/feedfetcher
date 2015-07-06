@@ -1,6 +1,8 @@
 /**
  * Created by michaelfisher on 7/5/15.
  */
+/*jslint node: true */
+"use strict";
 var request = require('superagent');
 var async = require('async');
 var feedParser = require('../../feedparser.js');
@@ -16,7 +18,7 @@ var processSearch = function (searchParams, cb) {
                     var redditJson = JSON.parse(res.text);
                     var reddit = feedParser.processSearchResponse('Reddit', redditJson.data.children);
                     next(err, reddit);
-                })
+                });
         },
         function (reddit, next) {
             request.get('http://hn.algolia.com/api/v1/search?query=' + searchParams)
@@ -24,7 +26,7 @@ var processSearch = function (searchParams, cb) {
                     var hnJson = JSON.parse(res.text);
                     var hn = feedParser.processSearchResponse('HackerNews', hnJson.hits);
                     next(err, reddit, hn);
-                })
+                });
         },
         function (reddit, hn, next) {
             var combinedResults = reddit.concat(hn);
