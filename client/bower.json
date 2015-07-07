@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "devDependencies": {},
   "dependencies": {
-    "angular": "~1.4.1",
+    "angular": "~1.4.2",
     "angular-material": "~0.10.0",
-    "angular-route": "~1.4.1"
+    "angular-route": "~1.4.1",
+    "angular-mocks": "~1.4.2"
+  },
+  "resolutions": {
+    "angular": "1.4.2"
   }
 }

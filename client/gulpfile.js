@@ -4,7 +4,7 @@ var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
-
+var karma = require('karma').server;
 var AUTOPREFIXER_BROWSERS = [
     'ie >= 10',
     'ie_mob >= 10',
@@ -16,6 +16,14 @@ var AUTOPREFIXER_BROWSERS = [
     'android >= 4.4',
     'bb >= 10'
 ];
+
+// Test
+gulp.task('test', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done);
+});
 
 
 // Lint JavaScript
@@ -97,7 +105,7 @@ gulp.task('scripts', function () {
 
 // Build angular components
 gulp.task('ng', function () {
-    return gulp.src('src/app/**/*.js')
+    return gulp.src(['src/app/**/*.js', '!src/app/**/*.spec.js'])
         .pipe($.ngAnnotate())
         .pipe($.concat('app.js'))
         .pipe(gulp.dest('../server/build-dev/app/'))

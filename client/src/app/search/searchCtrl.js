@@ -14,14 +14,14 @@
                     .success(function (data) {
                         vm.processing = false;
                         vm.items = data.results;
-                    })
+                    });
             };
 
             vm.save = function (item) {
                 Search.save(item)
                     .success(function (data) {
                         item.saved = true;
-                    })
-            }
+                    });
+            };
         });
 })();

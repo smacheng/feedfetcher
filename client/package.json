@@ -2,7 +2,13 @@
   "author": "Michael Fisher",
   "name": "feedfetcher-ng",
   "version": "0.3.2",
-  "dependencies": {},
+  "dependencies": {
+    "bower": "^1.4.1"
+  },
+  "scripts": {
+    "test": "gulp default && gulp test",
+    "postinstall": "node_modules/.bin/bower install"
+  },
   "devDependencies": {
     "browser-sync": "^2.7.13",
     "del": "^1.2.0",
@@ -29,8 +35,16 @@
     "gulp-uncss": "^1.0.1",
     "gulp-useref": "^1.2.0",
     "gulp-watch": "^4.2.4",
+    "jasmine-core": "^2.3.4",
     "jshint-stylish": "^2.0.1",
+    "karma": "^0.12.37",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-jasmine": "^0.3.6",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.2.0",
     "opn": "^3.0.2",
+    "phantomjs": "^1.9.17",
     "run-sequence": "^1.1.1"
   }
 }

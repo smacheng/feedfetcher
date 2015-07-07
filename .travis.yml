@@ -8,4 +8,7 @@ services: mongodb
 matrix:
   allow_failures:
     - node_js: iojs
-script: cd server && ./generateconfigfile.sh && npm install && npm test
+env:
+  - TEST_DIR=client
+  - TEST_DIR=server
+script: cd $TEST_DIR && npm install && npm test

@@ -11,6 +11,7 @@
             vm.itemsPerPage = 10;
             vm.currentPage = 1;
             vm.type = 'all';
+            vm.processing = false;
             // Connect to itemService, get a specific page
 
             vm.getResultsPage = function (pageNumber) {
@@ -70,7 +71,6 @@
                     Item.removeSavedItem(item._id)
                         .success(function (data) {
                             indexOfItem = vm.items.indexOf(item);
-                            console.log(indexOfItem);
                             vm.items.splice(indexOfItem, 1);
                         });
                 }
