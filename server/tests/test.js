@@ -30,6 +30,19 @@ describe('Server', function () {
     before(function () {
         boot();
     });
+    //     Seed item setup
+    describe('Database Seed', function () {
+        it('should add an item to the db', function (done) {
+            agent.get('/api/test/item')
+                .end(function (err, res) {
+                    expect(res.status).to.eql(200);
+                    expect(err).to.be(null);
+                    expect(res.body.message).to.eql('Seed item created');
+                    testItem = res.body.item;
+                    done();
+                })
+        });
+    });
 // Authorization
 //    Make sure it denies access to all routes that require authorization
     describe('Route Protection', function () {
@@ -98,19 +111,6 @@ describe('Server', function () {
             agent
                 .get('/api/fetch')
                 .expect(403, done);
-        });
-    });
-//     Seed item setup
-    describe('Database Seed', function () {
-        it('should add an item to the db', function (done) {
-            agent.get('/api/test/item')
-                .end(function (err, res) {
-                    expect(res.status).to.eql(200);
-                    expect(err).to.be(null);
-                    expect(res.body.message).to.eql('Seed item created');
-                    testItem = res.body.item;
-                    done();
-                })
         });
     });
 //    Public API
