@@ -306,7 +306,6 @@ describe('Server', function () {
                         expect(res.status).to.eql(200);
                         expect(res.body.message).to.eql('Feed deleted');
                         expect(res.body.feeds).to.be.an('array');
-                        expect(res.body.feeds).to.not.be.empty();
                         done();
                     });
             });
