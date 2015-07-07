@@ -102,6 +102,25 @@ if (argv.development) {
 }
 
 var server = http.createServer(app);
-server.listen(app.get('port'), function () {
-    console.info('Feedfetcher is listening on port ' + app.get('port'));
-});
+var boot = function () {
+    server.listen(app.get('port'), function () {
+        console.info('Feedfetcher is listening on port ' + app.get('port'));
+    });
+};
+
+var shutdown = function () {
+    feedFetcher.invalidateTimers();
+    server.close(function () {
+        console.log('closed');
+    });
+};
+
+if (require.main === module) {
+    boot();
+} else {
+    console.info('Running Feedfetcher as a module');
+    module.exports.boot = boot;
+    module.exports.shutdown = shutdown;
+    module.exports.port = app.get('port');
+}
+

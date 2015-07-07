@@ -3,13 +3,17 @@
  */
 
 var app = require('../app'),
+    boot = require('../app').boot,
+    shutdown = require('../app').shutdown,
     expect = require('expect.js'),
     config = require('../appconfig'),
     request = require('supertest'),
+    mongoose = require('mongoose'),
     agent = request.agent(app);
 
 // For use by the various tests
 // API response for /all/page/1
+var testItem;
 var items;
 // Test user
 var testUser;
@@ -23,6 +27,9 @@ var feed = {
 var createdFeed;
 
 describe('Server', function () {
+    before(function () {
+        boot();
+    });
 // Authorization
 //    Make sure it denies access to all routes that require authorization
     describe('Route Protection', function () {
@@ -93,6 +100,19 @@ describe('Server', function () {
                 .expect(403, done);
         });
     });
+//     Seed item setup
+    describe('Database Seed', function () {
+        it('should add an item to the db', function (done) {
+            agent.get('/api/test/item')
+                .end(function (err, res) {
+                    expect(res.status).to.eql(200);
+                    expect(err).to.be(null);
+                    expect(res.body.message).to.eql('Seed item created');
+                    testItem = res.body.item;
+                    done();
+                })
+        });
+    });
 //    Public API
     describe('Public Routes', function () {
         //    Allows access to public resources (/all and /login)
@@ -135,7 +155,7 @@ describe('Server', function () {
 //    Creates a user
         describe('Test User Creation', function () {
             it('Should create a test user', function (done) {
-                agent.get('/api/test')
+                agent.get('/api/test/user')
                     .end(function (err, res) {
                         expect(err).to.be(null);
                         expect(res.status).to.eql(200);
@@ -304,10 +324,21 @@ describe('Server', function () {
                     });
             });
         });
+        describe('Seed item deletion', function () {
+            it('should delete the seed item', function (done) {
+                agent.delete('/api/test/item/' + testItem._id)
+                    .set('x-access-token', token)
+                    .end(function (err, res) {
+                        expect(res.status).to.eql(200);
+                        expect(res.body.message).to.eql('Seed item deleted');
+                        done();
+                    })
+            })
+        });
 //    Deletes the user
         describe('Test user deletion', function () {
             it('Should delete a test user', function (done) {
-                agent.delete('/api/test/' + testUser._id)
+                agent.delete('/api/test/user/' + testUser._id)
                     .set('x-access-token', token)
                     .end(function (err, res) {
                         expect(res.status).to.eql(200);
@@ -316,5 +347,9 @@ describe('Server', function () {
                     });
             });
         });
+    });
+    after(function () {
+        mongoose.connection.close();
+        shutdown();
     });
 });

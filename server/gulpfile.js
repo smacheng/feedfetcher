@@ -13,5 +13,8 @@ gulp.task('jshint', function () {
 // Tests
 gulp.task('test', function () {
     return gulp.src('./tests/test.js')
-        .pipe($.mocha({reporter: 'nyan'}));
+        .pipe($.mocha({reporter: 'nyan'}))
+        .once('end', function () {
+            process.exit();
+        });
 });

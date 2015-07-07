@@ -51,13 +51,20 @@ module.exports = function (app, express, feedfetcher) {
         feedfetcher.fetch();
         res.json({message: 'refreshing'});
     });
+    // Routes used by tests
+    // Restrict to development
+    if (config.env === 'dev') {
+        // Route to create test user
+        // Should eventually be supplanted by normal routes for user registration
+        apiRouter.get('/test/user', routes.test.testUserCreate);
 
-    // Route to create test user
-    // Should eventually be supplanted by normal routes for user registration
-    apiRouter.get('/test', routes.user.testCreate);
+        apiRouter.delete('/test/user/:user_id', routes.auth.authorize, routes.test.testUserDelete);
 
-    apiRouter.delete('/test/:user_id', routes.auth.authorize, routes.user.testDelete);
+        // For tests, it is important to ensure that the database has at least one item in it
+        apiRouter.get('/test/item', routes.test.testItemCreate);
 
+        apiRouter.delete('/test/item/:item_id', routes.test.testItemDelete);
+    }
     // Return configured API Router
     return apiRouter;
 };

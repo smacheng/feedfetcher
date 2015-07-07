@@ -1,48 +1,53 @@
-/**
- * Created by michaelfisher on 6/21/15.
- */
 /*jslint node: true */
 "use strict";
-var config = require('../../../../appconfig');
-var User = require('../../model/user');
 
-/**
- * Create a user for tests
- * @param req
- * @param res
- * @param next
- */
-exports.create = function (req, res, next) {
-    req.models.User.findOne({'email': config.testuseremail}, function (error, user) {
-        if (!user) {
-            var testUser = new User();
+var models = require('../../model');
+var config = require('../../../../appconfig.js');
 
-            testUser.email = config.testuseremail;
-            testUser.password = config.testuserpassword;
-            testUser.admin = true;
-            testUser.save();
-            return res.json({'creation': true});
+exports.testUserCreate = function (req, res, next) {
+    var testUser = new models.User();
+    testUser.email = config.testuseremail;
+    testUser.password = config.testuserpassword;
+    testUser.admin = true;
+    testUser.save();
+    // Seeds database with at least one item
+
+    res.json({message: 'Test User Created', user: testUser});
+};
+
+exports.testItemCreate = function (req, res, next) {
+    var testItem = new models.Item();
+    testItem._externalID = '1234';
+    testItem.url = 'http://www.test.com';
+    testItem.title = 'Test';
+    testItem.score = '1';
+    testItem.posted = Date.now();
+    testItem.createdAt = Date.now();
+    testItem.source = 'Reddit';
+    testItem.savedBy = [];
+    testItem.save();
+
+    res.json({message: 'Seed item created', item: testItem});
+};
+
+exports.testItemDelete = function (req, res, next) {
+    models.Item.remove({_id: req.params.item_id}, function (err, item) {
+        if (err) {
+            res.send(err);
         } else {
-            return res.json({'creation': false});
+            res.json({message: 'Seed item deleted'});
+        }
+    })
+};
+
+exports.testUserDelete = function (req, res, next) {
+    models.User.remove({_id: req.params.user_id}, function (err, user) {
+        if (err) {
+            res.send(err)
+        } else {
+            res.json({message: 'Test User Deleted'});
         }
     });
 };
 
-/**
- * Delete a user for tests
- * @param req
- * @param res
- * @param next
- */
-exports.delete = function (req, res, next) {
-    req.models.User.findOne({'email': config.testuseremail}, function (error, user) {
-        if (!user) {
-            return res.json({'deletion': false});
-        } else {
-            user.remove(function (error, doc) {
-                if (error) return next(error);
-                res.json({'deletion': true});
-            });
-        }
-    });
-};
+
