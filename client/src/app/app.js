@@ -43,6 +43,7 @@
                 .accentPalette('orange');
             paginationTemplateProvider.setPath('app/util/paginate/dirPagination.tpl.html');
             $mdIconProvider.icon('menu', './assets/images/svg/menu_24.svg', 24)
+                .icon('ff_logo', './assets/images/svg/feedfetcher-logo.svg', 48)
                 .icon('arrow_back', './assets/images/svg/arrow_back_48.svg', 48)
                 .icon('delete', './assets/images/svg/delete_48.svg', 48)
                 .icon('edit', './assets/images/svg/edit_48.svg', 48)

@@ -50,6 +50,12 @@
                     controllerAs: 'item',
                     label: 'Saved'
                 })
+                .when('/saved/page/:page_number', {
+                    templateUrl: 'app/item/list.tpl.html',
+                    controller: 'SavedItemController',
+                    controllerAs: 'item',
+                    label: 'Saved'
+                })
                 // Route for editing a feed
                 .when('/feeds/:feed_id', {
                     templateUrl: 'app/feed/singlefeed.tpl.html',

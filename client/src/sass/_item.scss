@@ -1,7 +1,6 @@
 h1.points {
   display: block;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0px 10px;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.5);
 }
@@ -10,6 +9,17 @@ h1.points {
   margin-top: 5px;
   margin-bottom: 5px;
   background-color: white;
+}
+
+.save {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 5px;
+}
+
+.title-column {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .pagination {

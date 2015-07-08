@@ -1,7 +1,8 @@
-<md-content layout="column">
+<md-content>
+    <div layout="column" class="md-whiteframe-z2 fade" layout-margin layout-padding>
     <form ng-submit="search.search()">
         <md-input-container>
-            <label>URL</label>
+            <label>Search For</label>
             <input ng-model="search.searchData.parameter" type="text">
         </md-input-container>
         <md-input-container>
@@ -11,18 +12,6 @@
     <div ng-if="search.processing" class="fade" layout="row" layout-align="center center">
         <md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-list>
-        <md-list-item class="md-2-line" ng-repeat="post in search.items">
-            <div class="md-list-item-text" id="{{post._id}}">
-                <h3 ng-if="post.source === 'Reddit'">Reddit</h3>
-
-                <h3 ng-if="post.source === 'HackerNews'">Hacker News</h3>
-
-                <p>{{post.title}}</p>
-            </div>
-            <md-icon md-svg-icon="favorite"
-                     ng-class="{'md-primary' : post.saved}"
-                     ng-click="search.save(post)"></md-icon>
-        </md-list-item>
-    </md-list>
+    </div>
+    <mph-search-item ng-repeat="post in search.items"></mph-search-item>
 </md-content>

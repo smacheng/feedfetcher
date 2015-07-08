@@ -3,8 +3,8 @@ module.exports = function (config) {
         basePath: './',
 
         files: [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-*/angular-*.js',
+            'src/components/angular/angular.js',
+            'src/components/angular-*/angular-*.js',
             'build/prod/app/**/*.js',
             'test/lib/angular-mocks/angular-mocks.js',
             'src/**/*.spec.js'

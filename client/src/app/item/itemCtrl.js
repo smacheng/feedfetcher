@@ -16,11 +16,11 @@
             // Connect to itemService, get a specific page
 
             vm.onFirstPage = function () {
-                return vm.currentPage === 1;
+                return vm.currentPage == 1;
             };
 
             vm.onLastPage = function () {
-                return vm.totalPages === vm.currentPage;
+                return vm.totalPages == vm.currentPage;
             };
 
             vm.getResultsPage = function (pageNumber) {
@@ -69,12 +69,23 @@
                 }
             };
         })
-        .controller('SavedItemController', function (Auth, Item) {
+        .controller('SavedItemController', function (Item, $routeParams, $window, $location) {
             var vm = this;
             vm.totalItems = 0;
             vm.itemsPerPage = 10;
-            vm.currentPage = 1;
+            vm.currentPage = $routeParams.page_number ? $routeParams.page_number : 1;
+            vm.totalPages = 1;
             vm.type = 'saved';
+            vm.processing = false;
+
+            vm.onFirstPage = function () {
+                return vm.currentPage == 1;
+            };
+
+            vm.onLastPage = function () {
+                return vm.totalPages == vm.currentPage;
+            };
+
             vm.getResultsPage = function (pageNumber) {
                 vm.processing = true;
                 Item.getSavedPage(pageNumber)
@@ -82,8 +93,26 @@
                         vm.totalItems = data.itemCount;
                         vm.items = data.items;
                         vm.currentPage = pageNumber;
+                        vm.totalPages = data.pageCount;
                         vm.processing = false;
                     });
+            };
+
+            // Get first page at load
+            vm.getResultsPage(vm.currentPage);
+            // Gets next page of results
+            vm.pageForward = function () {
+                vm.currentPage++;
+                $location.path('/saved/page/' + vm.currentPage);
+            };
+
+            vm.pageBackward = function () {
+                vm.currentPage--;
+                $location.path('/saved/page/' + vm.currentPage);
+            };
+
+            vm.openLink = function (url) {
+                $window.open(url, '_blank');
             };
 
             vm.toggleSaved = function (item) {
@@ -95,17 +124,12 @@
                         });
                 }
             };
-
-            vm.getResultsPage(1);
-            vm.pageChanged = function (newPage) {
-                vm.getResultsPage(newPage);
-            };
         })
         // Directive for <item-listing> tag
-        .directive('itemListing', function () {
+        .directive('mphItem', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'app/item/itemlisting.tpl.html'
+                templateUrl: 'app/item/itemListing.tpl.html'
             };
         });
 

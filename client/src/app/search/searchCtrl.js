@@ -23,5 +23,11 @@
                         item.saved = true;
                     });
             };
+        })
+        .directive('mphSearchItem', function () {
+            return {
+                restrict: 'E',
+                templateUrl: 'app/search/searchItem.tpl.html'
+            };
         });
 })();

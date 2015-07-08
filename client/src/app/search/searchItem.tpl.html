@@ -1,0 +1,31 @@
+<div layout="row" layout-sm="column" layout-align-sm="center center" class="item fade md-whiteframe-z3">
+    <div ng-if="!main.small" class="points" flex="10" layout-align="center center">
+        <h1 class="points">{{post.score}}</h1>
+    </div>
+    <div layout="column" layout-align="center start" flex="80" class="md-padding reddit">
+        <div class="title"><a ng-href="{{post.url}}" target="_blank">{{post.title}}</a></div>
+    </div>
+    <div hide-sm class="save" layout="column" layout-align="center center" flex="5">
+        <md-button aria-label="Save Item">
+            <md-icon ng-if="main.loggedIn"
+                     md-svg-icon="favorite"
+                     ng-class="{'md-primary' : post.saved}"
+                     ng-click="search.save(post)"></md-icon>
+        </md-button>
+    </div>
+    <div layout="row" ng-if="main.small">
+        <div class="points"
+             flex="50"
+             layout-align="center center">
+            <h1 class="points">{{post.score}}</h1>
+        </div>
+        <div class="save" layout="column" layout-align="center center" flex="50">
+            <md-button aria-label="Save Item">
+                <md-icon ng-if="main.loggedIn"
+                         md-svg-icon="favorite"
+                         ng-class="{'md-primary' : post.saved}"
+                         ng-click="search.save(post)"></md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var addsrc = require('gulp-add-src');
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
@@ -30,7 +31,7 @@ gulp.task('test', function (done) {
 
 // Lint JavaScript
 gulp.task('jshint', function () {
-    return gulp.src('src/app//**/*.js')
+    return gulp.src('src/app/**/*.js')
         .pipe(reload({stream: true, once: true}))
         .pipe($.jshint())
         .pipe($.jshint.reporter('jshint-stylish'))
@@ -58,18 +59,47 @@ gulp.task('fonts', function () {
 gulp.task('styles', function () {
     // For best performance, don't add Sass partials to `gulp.src`
     return gulp.src([
-        'src/sass/**/*.scss'
+        'src/sass/styles.scss'
     ])
         .pipe($.sass({
             precision: 10,
             onError: console.error.bind(console, 'Sass error:')
         }))
         .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+        // Add component CSS
+        .pipe(addsrc.prepend('src/components/**/*.min.css'))
         // Concatenate and minify styles
+        .pipe($.concat('styles.css'))
         .pipe(gulp.dest('../server/build-dev/assets/styles'))
         .pipe($.csso())
         .pipe(gulp.dest('build/prod/assets/styles'))
         .pipe($.size({title: 'styles'}));
+});
+
+// Build the app
+gulp.task('app', function () {
+    // Turn partials into JS templates
+    return gulp.src('src/app/**/**/*.tpl.html')
+        .pipe(gulp.dest('../server/build-dev/app'))
+        // Minify
+        .pipe($.minifyHtml({
+            empty: true,
+            sparse: true,
+            quotes: true
+        }))
+        // Put the minified HTML into appropriate folders in prod
+        .pipe(gulp.dest('build/prod/app/'))
+        .pipe($.ngHtml2js({
+            moduleName: 'PartialTemplates',
+            prefix: '/partials'
+        }))
+//    Grab the rest of the angular scripts
+        .pipe(addsrc.prepend(['src/app/**/*.js', '!src/app/**/*.spec.js']))
+        .pipe($.ngAnnotate())
+        .pipe($.concat('app.js'))
+        .pipe(gulp.dest('../server/build-dev/app/'))
+        .pipe($.uglify())
+        .pipe(gulp.dest('build/prod/app/'));
 });
 
 // Turn partials into JS templates
@@ -92,15 +122,6 @@ gulp.task('html2js', function () {
         .pipe(gulp.dest('src/app/util/partials'));
 });
 
-// Scripts
-gulp.task('scripts', function () {
-    return gulp.src('src/common/scripts/**.js')
-        .pipe($.concat('script.js'))
-        .pipe(gulp.dest('../server/build-dev/assets/script'))
-        .pipe($.uglify())
-        .pipe(gulp.dest('build/prod/assets/script/'));
-});
-
 // Build angular components
 gulp.task('ng', function () {
     return gulp.src(['src/app/**/*.js', '!src/app/**/*.spec.js'])
@@ -111,13 +132,16 @@ gulp.task('ng', function () {
         .pipe(gulp.dest('build/prod/app/'));
 });
 
-// Build CSS Libs
-gulp.task('css-lib', function () {
-    return gulp.src('vendor/min/*.css')
-        .pipe($.concat('lib.css'))
-        .pipe(gulp.dest('build/prod/assets/styles'))
-        .pipe(gulp.dest('../server/build-dev/assets/styles'));
+
+// Scripts
+gulp.task('scripts', function () {
+    return gulp.src('src/common/scripts/**.js')
+        .pipe($.concat('script.js'))
+        .pipe(gulp.dest('../server/build-dev/assets/script'))
+        .pipe($.uglify())
+        .pipe(gulp.dest('build/prod/assets/script/'));
 });
+
 
 // HTML Minify
 gulp.task('html', function () {
@@ -135,7 +159,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'build/*', '../server/build-dev/*', '
 
 // Watch files for changes & reload
 gulp.task('live', function () {
-    gulp.watch(['src/app/**/**/*.tpl.html', 'src/app/**/*.js', '!src/app/util/partials'], ['live-script']);
+    gulp.watch(['src/app/**/**/*.tpl.html', 'src/app/**/*.js'], ['app']);
     gulp.watch('src/sass/**/*.scss', ['styles']);
     gulp.watch('src/*.html', ['html']);
     gulp.watch('src/common/images/**/*', ['images']);
@@ -156,15 +180,5 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function () {
-    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib', 'scripts']);
+    runSequence('styles', ['jshint', 'images', 'fonts', 'app', 'html', 'scripts']);
 });
-
-gulp.task('live-task', function () {
-    runSequence('styles', ['jshint', 'images', 'fonts', 'html2js', 'ng', 'html', 'css-lib', 'scripts']);
-
-});
-
-gulp.task('live-script', function () {
-    runSequence('html2js', ['ng']);
-});
-
