@@ -41,8 +41,13 @@ FeedFetcher.model = require('./model/index.js');
 var fetchFeed = function (feed) {
     request.get(feed.url)
         .end(function (err, res) {
-            if (err) console.log(err);
-            parser.processResponse(res);
+            if (err) {
+                console.log(err);
+            }
+            // Make sure that the status code is 200 before attempting to parse the object
+            if (res.statusCode === 200) {
+                parser.processResponse(res);
+            }
         });
 };
 /**
