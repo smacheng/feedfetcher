@@ -129,7 +129,7 @@
         .directive('mphItem', function () {
             return {
                 restrict: 'E',
-                templateUrl: 'app/item/itemListing.tpl.html'
+                templateUrl: 'app/item/item.tpl.html'
             };
         });
 

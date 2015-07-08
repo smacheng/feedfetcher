@@ -1,0 +1,26 @@
+<div layout="row" layout-sm="column" layout-align-sm="center center" layout-margin class="item md-whiteframe-z3">
+    <div ng-if="!main.small" class="points" flex="10">
+        <h1 class="points">{{post.score}}</h1>
+    </div>
+    <div layout="column" class="title-column" layout-align="center start" flex="80">
+        <div class="title"><a ng-href="{{post.url}}" target="_blank">{{post.title}}</a></div>
+    </div>
+    <div ng-if="!main.small" layout="column" class="save" flex="5" layout-align="center center">
+        <md-icon ng-if="main.loggedIn"
+                 md-svg-icon="favorite"
+                 ng-class="{'md-primary' : post.saved}"
+                 ng-click="item.toggleSaved(post)"></md-icon>
+    </div>
+    <div layout="row" ng-if="main.small">
+        <div class="points"
+             flex="50"
+             layout-align="center center">
+            <h1 class="points">{{post.score}}</h1>
+        </div>
+        <div class="save" layout="column" layout-align="center center" flex="50">
+            <md-icon ng-if="main.loggedIn"
+                     md-svg-icon="favorite"
+                     ng-class="{'md-primary' : post.saved}" ng-click="item.toggleSaved(post)"></md-icon>
+        </div>
+    </div>
+</div>
