@@ -60,18 +60,14 @@ gulp.task('styles', function () {
     return gulp.src([
         'src/sass/**/*.scss'
     ])
-        .pipe($.sourcemaps.init())
-        .pipe($.changed('.tmp/styles', {extension: '.css'}))
         .pipe($.sass({
             precision: 10,
             onError: console.error.bind(console, 'Sass error:')
         }))
         .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
-        .pipe($.sourcemaps.write())
-        .pipe(gulp.dest('.tmp/styles'))
         // Concatenate and minify styles
-        .pipe($.if('*.css', $.csso()))
         .pipe(gulp.dest('../server/build-dev/assets/styles'))
+        .pipe($.csso())
         .pipe(gulp.dest('build/prod/assets/styles'))
         .pipe($.size({title: 'styles'}));
 });

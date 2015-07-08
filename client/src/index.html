@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <title>FeedFetcher</title>
     <!-- Angular Routing -->
-    <script>
-        document.write('<base href="' + document.location + '" />');
-    </script>
+    <base href="/">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- CSS -->
@@ -34,29 +32,35 @@
 
 <body ng-app="feedApp" layout="row" ng-controller="MainController as main">
 <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
-            md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-sm')">
+            md-component-id="left">
     <md-toolbar class="nav-header">
-        <h1>FeedFetcher</h1>
+        <p>feedfetcher</p>
     </md-toolbar>
     <ul class="site-menu" ng-controller="NavigationController as nav">
         <li>
-            <md-button class="nav-item" ng-href="/" ng-class="{active: nav.isActive('/')}">
+            <md-button class="nav-item" ng-click="nav.loadPage('/')" ng-class="{active: nav.isActive('/')}">
                 All Items
             </md-button>
         </li>
         <li ng-if="!main.loggedIn">
-            <md-button class="nav-item" ng-href="/login" ng-class="{active: nav.isActive('/login')}">Login</md-button>
-        </li>
-        <li ng-if="main.loggedIn">
-            <md-button class="nav-item" ng-href="/search" ng-class="{active: nav.isActive('/search')}">Search
+            <md-button class="nav-item" ng-click="nav.loadPage('/login')" ng-class="{active: nav.isActive('/login')}">
+                Login
             </md-button>
         </li>
         <li ng-if="main.loggedIn">
-            <md-button class="nav-item" ng-href="/saved" ng-class="{active: nav.isActive('/saved')}">Saved</md-button>
+            <md-button class="nav-item" ng-click="nav.loadPage('/search')" ng-class="{active: nav.isActive('/search')}">
+                Search
+            </md-button>
         </li>
         <li ng-if="main.loggedIn">
-            <md-button class="nav-item" ng-href="/feeds" ng-class="{active: nav.isActive('/feeds')}">Feeds</md-button>
+            <md-button class="nav-item" ng-click="nav.loadPage('/saved')" ng-class="{active: nav.isActive('/saved')}">
+                Saved
+            </md-button>
+        </li>
+        <li ng-if="main.loggedIn">
+            <md-button class="nav-item" ng-click="nav.loadPage('/feeds')" ng-class="{active: nav.isActive('/feeds')}">
+                Feeds
+            </md-button>
         </li>
         <li ng-if="main.loggedIn">
             <md-button class="nav-item" href="#" ng-click="main.doLogout()">Logout</md-button>
@@ -65,12 +69,16 @@
 </md-sidenav>
 
 <div flex layout="column" tabindex="-1" role="main">
-    <md-toolbar layout="row" class="md-whiteframe-z1 site-content-toolbar md-default-theme">
-        <md-button class="menu" hide-gt-sm ng-click="main.toggleNav()" aria-label="Show Navigation">
+    <md-toolbar md-scroll-shrink layout="row" class="md-whiteframe-z1 site-content-toolbar md-default-theme"
+                ng-controller="ToolbarController as toolbar">
+        <md-button class="menu" ng-click="main.toggleNav()" aria-label="Show Navigation">
             <md-icon md-svg-icon="menu"></md-icon>
         </md-button>
+        <div layout="row" layout-align="center center" class="site-title">
+            {{toolbar.title}}
+        </div>
     </md-toolbar>
-    <md-content id="main-content" md-scroll-y flex ng-view>
+    <md-content id="main-content" flex ng-view>
     </md-content>
 </div>
 

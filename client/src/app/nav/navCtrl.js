@@ -9,5 +9,9 @@
             vm.isActive = function (viewLocation) {
                 return viewLocation === $location.path();
             };
+
+            vm.loadPage = function (route) {
+                $location.path(route);
+            };
         });
 })();

@@ -4,15 +4,24 @@
 (function () {
     angular.module('itemCtrl', ['itemService'])
         // Full listing controller
-        .controller('ItemController', function (Item) {
+        .controller('ItemController', function (Item, $window, $routeParams, $location) {
             var vm = this;
             // Setup for pagination
             vm.totalItems = 0;
             vm.itemsPerPage = 10;
-            vm.currentPage = 1;
+            vm.currentPage = $routeParams.page_number ? $routeParams.page_number : 1;
+            vm.totalPages = 1;
             vm.type = 'all';
             vm.processing = false;
             // Connect to itemService, get a specific page
+
+            vm.onFirstPage = function () {
+                return vm.currentPage === 1;
+            };
+
+            vm.onLastPage = function () {
+                return vm.totalPages === vm.currentPage;
+            };
 
             vm.getResultsPage = function (pageNumber) {
                 vm.processing = true;
@@ -21,15 +30,26 @@
                         vm.currentPage = pageNumber;
                         vm.items = data.items;
                         vm.totalItems = data.itemCount;
+                        vm.totalPages = data.pageCount;
                         vm.processing = false;
                     });
             };
 
             // Get first page at load
-            vm.getResultsPage(1);
+            vm.getResultsPage(vm.currentPage);
             // Gets next page of results
-            vm.pageChanged = function (newPage) {
-                vm.getResultsPage(newPage);
+            vm.pageForward = function () {
+                vm.currentPage++;
+                $location.path('/all/page/' + vm.currentPage);
+            };
+
+            vm.pageBackward = function () {
+                vm.currentPage--;
+                $location.path('/all/page/' + vm.currentPage);
+            };
+
+            vm.openLink = function (url) {
+                $window.open(url, '_blank');
             };
 
             vm.toggleSaved = function (item) {

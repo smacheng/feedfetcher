@@ -23,6 +23,7 @@
         'itemService',
         'searchService',
         'searchCtrl',
+        'toolbarCtrl',
         // Navigation's Controller
         'navCtrl',
         // Dependency for ngMaterial
@@ -31,8 +32,6 @@
         'angularUtils.directives.dirPagination',
         // Material design directives
         'ngMaterial',
-        // ng-breadcrumb, for breadcrumbs in toolbar
-        'ng-breadcrumbs',
         // partial templates
         'PartialTemplates'
     ])

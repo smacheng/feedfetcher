@@ -42,7 +42,7 @@ exports.page = function (req, res) {
                 delete item.savedBy;
                 item.saved = true;
             }
-            res.json({itemCount: itemCount, items: results});
+            res.json({itemCount: itemCount, items: results, pageCount: pageCount});
         }
     });
 };

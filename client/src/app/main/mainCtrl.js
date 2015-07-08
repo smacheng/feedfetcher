@@ -3,14 +3,25 @@
  */
 (function () {
     angular.module('mainCtrl', [])
-        .controller('MainController', function ($rootScope, $location, $mdSidenav, Auth) {
+        .controller('MainController', function ($rootScope, $scope, $location, $mdMedia, $mdSidenav, Auth) {
             var vm = this;
-
+            vm.small = $mdMedia('sm');
+            $scope.$watch(function () {
+                return $mdMedia('sm');
+            }, function (small) {
+                vm.small = small;
+            }, true);
             //    Find out if logged in
             vm.loggedIn = Auth.isLoggedIn();
             // Check to see if a user is logged in on every request
             $rootScope.$on('$routeChangeStart', function () {
                 vm.loggedIn = Auth.isLoggedIn();
+            });
+
+            $rootScope.$on('$routeChangeSuccess', function () {
+                if ($mdSidenav('left').isOpen()) {
+                    $mdSidenav('left').close();
+                }
             });
 
             //    Handle logging out
@@ -24,7 +35,6 @@
 
             vm.toggleNav = function () {
               $mdSidenav('left').toggle();
-
             };
 
         })
