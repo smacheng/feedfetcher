@@ -3,14 +3,9 @@
  */
 (function () {
     angular.module('mainCtrl', [])
-        .controller('MainController', function ($rootScope, $scope, $location, $mdMedia, $mdSidenav, Auth) {
+        .controller('MainController', function ($rootScope, $scope, $location, $mdSidenav, Auth) {
             var vm = this;
-            vm.small = $mdMedia('sm');
-            $scope.$watch(function () {
-                return $mdMedia('sm');
-            }, function (small) {
-                vm.small = small;
-            }, true);
+
             //    Find out if logged in
             vm.loggedIn = Auth.isLoggedIn();
             // Check to see if a user is logged in on every request

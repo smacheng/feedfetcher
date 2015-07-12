@@ -18,11 +18,11 @@ var fetchTimer;
  * Opt is unused currently, eventually would like to make timerDelay modifiable
  * @param opt
  */
-FeedFetcher.init = function (opt) {
+FeedFetcher.init = function init(opt) {
     getFeeds();
     // TODO:  make timerDelay a modifiable property
     // Default:  10 minutes
-    timerDelay = 1000 * 60 * 10;
+    timerDelay = 1000 * 25;
 };
 
 /**
@@ -38,7 +38,7 @@ FeedFetcher.api = require('./api/api.js');
 FeedFetcher.model = require('./model/index.js');
 
 
-var fetchFeed = function (feed) {
+var fetchFeed = function fetchFeed(feed) {
     request.get(feed.url)
         .end(function (err, res) {
             if (err) {
@@ -55,7 +55,7 @@ var fetchFeed = function (feed) {
  * TODO:  Make this method get the list of feeds from Mongo so it is up to date before fetching.
  * TODO:  Have this method accept a callback so we know when fetching is completed.
  */
-FeedFetcher.fetch = function () {
+FeedFetcher.fetch = function fetch() {
     for (var i = 0; i < feeds.length; i++) {
         var feed = feeds[i];
         fetchFeed(feed);
@@ -81,7 +81,7 @@ FeedFetcher.startTimers = function (delay) {
 /**
  * Loads the models for feeds.
  */
-var getFeeds = function () {
+var getFeeds = function getFeeds() {
     FeedFetcher.model.Feed.list(function (err, feedResponse) {
         feeds = feedResponse;
         FeedFetcher.startTimers(timerDelay);

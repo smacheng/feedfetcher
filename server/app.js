@@ -122,5 +122,6 @@ if (require.main === module) {
     module.exports.boot = boot;
     module.exports.shutdown = shutdown;
     module.exports.port = app.get('port');
+    boot();
 }
 

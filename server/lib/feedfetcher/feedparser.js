@@ -12,7 +12,7 @@ var Parser = {};
  * Takes a JSON response from a feed, checks if it is from HN or Reddit, processes it appropriately.
  * @param response
  */
-Parser.processResponse = function (response) {
+Parser.processResponse = function respProcess(response) {
     var posts = JSON.parse(response.text);
     // if the post has a data property, we know it's a reddit post
     if (posts.data) {
@@ -29,7 +29,7 @@ Parser.processResponse = function (response) {
  * Loop through an array of reddit posts
  * @param redditResponseArray
  */
-var processRedditResponse = function (redditResponseArray) {
+var processRedditResponse = function reddRespProcess(redditResponseArray) {
     for (var i = 0; i < redditResponseArray.length; i++) {
         processRedditPost(redditResponseArray[i].data);
     }
@@ -39,7 +39,7 @@ var processRedditResponse = function (redditResponseArray) {
  * Normalizes Reddit Posts into Mongo
  * @param redditPost
  */
-var processRedditPost = function (redditPost) {
+var processRedditPost = function reddPostProcess(redditPost) {
     if (redditPost) {
         var externalID = redditPost.id;
         // Convert from Unix Time (in seconds) to milliseconds
@@ -60,7 +60,7 @@ var processRedditPost = function (redditPost) {
         });
     }
 };
-var fetchDeeperHackerNewsInfo = function (urlString) {
+var fetchDeeperHackerNewsInfo = function deepHackerFetch(urlString) {
     request.get(urlString)
         .end(function (error, res) {
             if (error) console.log(error);
@@ -71,7 +71,7 @@ var fetchDeeperHackerNewsInfo = function (urlString) {
  * Walks an array of HN Item ID's, grabs the actual item
  * @param hnResponseArray
  */
-var fetchHackerNewsPost = function (hnResponseArray) {
+var fetchHackerNewsPost = function fetchHackerNewsLoop(hnResponseArray) {
     for (var i = 0; i < hnResponseArray.length; i++) {
         var urlString = 'https://hacker-news.firebaseio.com/v0/item/' + hnResponseArray[i] + '.json?print=pretty';
         fetchDeeperHackerNewsInfo(urlString);
@@ -82,7 +82,7 @@ var fetchHackerNewsPost = function (hnResponseArray) {
  * Normalizes a JSON object from HN's API into Mongo
  * @param hnItemResponse
  */
-var processHackerNewsPost = function (hnItemResponse) {
+var processHackerNewsPost = function processHackerNewsPost(hnItemResponse) {
     if (hnItemResponse) {
         var hnPost = JSON.parse(hnItemResponse.text);
         if (hnPost) {
